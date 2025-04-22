@@ -3,7 +3,7 @@ package catchGame.map;
 import java.util.Random;
 import java.util.Scanner;
 
-public class mapExploring {
+public class MapExploring {
 	String[] map = { "하늘", "바다", "산", "랜덤" };
 	Scanner scanner = new Scanner(System.in);
 	String answerMap;

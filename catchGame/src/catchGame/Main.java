@@ -1,13 +1,13 @@
 package catchGame;
 
 import catchGame.manage.GameManager;
-import catchGame.map.mapExploring;
+import catchGame.map.MapExploring;
 
 public class Main {
 
 	public static void main(String[] args) {
 		GameManager manager = new GameManager();
-		mapExploring map = new mapExploring();
+		MapExploring map = new MapExploring();
 		manager.runGame();
 	}
 
