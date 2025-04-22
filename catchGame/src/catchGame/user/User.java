@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class User {
 	public String userName;
 	public String location;
-	public MonsterBase[] pokeDex;
+	// public MonsterBase[] pokeDex;
 
 	Scanner scanner = new Scanner(System.in);
 
