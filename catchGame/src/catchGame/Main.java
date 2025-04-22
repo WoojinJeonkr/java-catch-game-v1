@@ -8,5 +8,4 @@ public class Main {
 		GameManager manager = new GameManager();
 		manager.runGame();
 	}
-
 }
