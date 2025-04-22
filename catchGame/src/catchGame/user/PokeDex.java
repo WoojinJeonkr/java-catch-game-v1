@@ -47,4 +47,13 @@ public class PokeDex {
 			System.out.println("---------------------------------\n");	
 		}
 	}
+	
+	public void updatePokeDex(String name) {
+		for (int i = 0; i < this.pokeDex.length; i++) {
+			if(this.pokeDex[i].name.equals(name)){
+				this.pokeDex[i].ifCatch = true;
+			}
+		}
+		
+	}
 }
