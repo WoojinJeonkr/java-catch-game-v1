@@ -1,4 +1,4 @@
-package user;
+package catchGame.user;
 
 import monster.MonsterBase;
 
