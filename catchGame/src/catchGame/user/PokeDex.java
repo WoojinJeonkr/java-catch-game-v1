@@ -2,13 +2,14 @@ package catchGame.user;
 
 import monster.MonsterBase;
 
-public class PokeDex extends User{
+public class PokeDex {
+	
+	MonsterBase[] pokeDex;
 	
 	PokeDex(){
 		this.pokeDex = new MonsterBase[10];
 	}
-	
-	@Override
+
 	public boolean insertPokeDex() {
 		this.pokeDex[0] = new Monster0();
 		this.pokeDex[1] = new Monster1();
@@ -24,7 +25,6 @@ public class PokeDex extends User{
 		return true;
 	}
 	
-	@Override
 	public void printPokeDex() {
 		System.out.println("잡은 포켓몬 리스트를 출력합니다\n");
 		for (int i = 0; i < this.pokeDex.length; i++) {
