@@ -30,8 +30,19 @@ public class PokeDex extends User{
 		for (int i = 0; i < this.pokeDex.length; i++) {
 			System.out.println("---------------------------------\n");
 			if (this.pokeDex[i].ifCatch) {//true 잡힌거
-				System.out.println(this.pokeDex[i].name);
-				System.out.println(this.pokeDex[i].present);				
+				String Rpad = ""; // 도감번호 Rpad
+				for (int j = 0; j < 4; j ++) {
+					
+					if (Rpad.length() + String.valueOf(i).length() == 4) {
+						break;
+					}else {
+						Rpad = Rpad + "0";
+					}
+				}	
+				
+				System.out.println("도감 번호 : No." + Rpad + i);
+				System.out.println("포켓몬 이름 : " + "잉어킹");
+				System.out.println("포켓몬 설명 : " + "쓸모없다\n");					
 			}
 			System.out.println("---------------------------------\n");	
 		}
