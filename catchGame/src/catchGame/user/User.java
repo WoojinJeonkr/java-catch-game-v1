@@ -34,7 +34,6 @@ public class User {
 		MapExploring map = new MapExploring();
 		map.mapInput();
 		this.location = map.answerMap;
-		map.mapSelect(map.answerMap);
 	}
 	
 	// 유저 정보 출력
