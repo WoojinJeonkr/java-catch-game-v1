@@ -7,9 +7,9 @@ public class MapExploring {
 	String[] map = { "하늘", "바다", "산", "랜덤" };
 	Scanner scanner = new Scanner(System.in);
 	Scanner scanner2 = new Scanner(System.in);
-	String answerMap;
-	int mapIndex = 1;
-	int mapReturn;
+	public String answerMap;
+	private int mapIndex = 1;
+	private int mapReturn;
 
 	public void mapInput() {
 		while (this.mapIndex == 1) {
