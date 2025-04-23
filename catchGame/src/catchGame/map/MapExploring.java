@@ -4,7 +4,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class MapExploring {
-   String[] map = { "하늘", "바다", "산", "랜덤", "취소"};
+   public String[] map = { "하늘", "바다", "산", "랜덤", "취소"};
    Scanner scanner = new Scanner(System.in);
    public String answerMap;
    public int mapIterationCount; // 맵 선택하기 반복 횟수
