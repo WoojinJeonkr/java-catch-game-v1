@@ -42,7 +42,7 @@ public class User {
 
 		// 현재 지역에 맞는 몬스터 배열 가져옴
 		if (this.location.equals(gameMap[0])) {
-			System.out.println("💥 몬스터를 만났다! 💥");
+			System.out.println("\n💥 몬스터를 만났다! 💥\n");
 			MonsterBase skyMonster = monsterArrays.skyMonsters();
 			skyMonster.appearanceComment();
 			isCatch = skyMonster.catchMonster();
@@ -66,10 +66,9 @@ public class User {
 
 		// 포획했다면 도감에 등록
 		if (isCatch) {
-			System.out.println("2. 등록");
-			System.out.println("포획: " + catchMonsterName);
+			System.out.println(catchMonsterName + " 포획 완료!");
 			this.updateMyPokeDex(catchMonsterName);
-			System.out.println("3. 등록 완료");
+			System.out.println(catchMonsterName + "(이)가 도감에 등록되었습니다.");
 		}
 	}
 

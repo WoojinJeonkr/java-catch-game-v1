@@ -34,28 +34,13 @@ public class GameManager {
 			System.out.println("\n>> 몬스터를 탐색 중입니다...");
 
 			user.catchMonster();
-			System.out.println("1. 계속 탐색하기 2. 다른 맵 이동 4. 몬스터 검색 5. 홈으로 가기");
-			String ans = scanner.nextLine();
-			// TODO: 1. 배회하기(탐색하기) 2. 다른 맵 이동하기 3. 도감 보기 4. 몬스터 검색 5. 홈으로가기 반복 출력
-			// 탐색 로직 추가
-			switch (ans) {
-			case "1":
-				user.catchMonster();
-				break;
-			case "2":
-				user.selectMap();
-				break;
-			case "3":
-				user.
-			case "4":
-			case "5":
-			default:
-			}
+			printUserAction();
 			break;
 		case 2:
 			System.out.println("\n>> 나의 몬스터 도감을 확인합니다.");
 			// 도감 출력 메서드 호출
 			user.printMyPokeDex();
+			printUserAction();
 			break;
 		case 3:
 			System.out.println("\n>> 내 정보를 확인합니다.");
@@ -68,6 +53,34 @@ public class GameManager {
 			break;
 		default:
 			System.out.println("잘못된 입력입니다. 1 ~ 5 사이의 숫자를 입력하세요.");
+		}
+	}
+
+	public void printUserAction() {
+		while (true) {
+			System.out.println("1. 계속 탐색하기 2. 다른 맵 이동 3. 도감 보기 4. 몬스터 검색 5. 홈으로 가기");
+			String ans = scanner.nextLine();
+			switch (ans) {
+			case "1":
+				user.catchMonster();
+				break;
+			case "2":
+				user.selectMap();
+				System.out.println("--" + user.location + "맵에 소환되었습니다--");
+				break;
+			case "3":
+				user.printMyPokeDex();
+				break;
+			case "4":
+				user.searchTotalPokeDex();
+				break;
+			case "5":
+				return;
+			default:
+				System.out.println("잘못된 입력입니다. 1 ~ 5 사이의 숫자를 입력하세요.");
+				printUserAction();
+				break;
+			}
 		}
 	}
 

@@ -16,7 +16,7 @@ public class MapExploring {
 		this.mapIterationCount = mapCount;
 
 		while (this.mapIndex == 1) {
-			if (mapIterationCount < 1) {
+			if (visitCnt < 1) {
 				System.out.println("\n+++ 몬스터 잡기 게임 +++");
 			}
 			System.out.println("🗺️ 맵을 선택하세요 (하늘☁️ |바다🌊 |땅🌴 |랜덤🎲 |취소⚠️)");
