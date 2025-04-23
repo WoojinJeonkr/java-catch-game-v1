@@ -1,4 +1,4 @@
-package catchGame.Monster;
+package catchGame.monster;
 
 public class Monster10 extends MonsterBase{
 

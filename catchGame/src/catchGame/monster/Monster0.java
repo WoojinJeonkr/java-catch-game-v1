@@ -1,4 +1,4 @@
-package catchGame.Monster;
+package catchGame.monster;
 
 
 // 아무것도 만나지 않았을 때
