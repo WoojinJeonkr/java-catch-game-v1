@@ -1,4 +1,4 @@
-package Monster;
+package catchGame.Monster;
 
 public class MainClass {
 	public static void main(String[] args) {

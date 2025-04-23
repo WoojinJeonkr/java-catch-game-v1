@@ -1,4 +1,4 @@
-package Monster;
+package catchGame.Monster;
 
 
 // 아무것도 만나지 않았을 때
