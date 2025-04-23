@@ -1,5 +1,16 @@
 package catchGame.user;
 
+import catchGame.monster.Monster0;
+import catchGame.monster.Monster1;
+import catchGame.monster.Monster10;
+import catchGame.monster.Monster2;
+import catchGame.monster.Monster3;
+import catchGame.monster.Monster4;
+import catchGame.monster.Monster5;
+import catchGame.monster.Monster6;
+import catchGame.monster.Monster7;
+import catchGame.monster.Monster8;
+import catchGame.monster.Monster9;
 import catchGame.monster.MonsterBase;
 
 public class PokeDex {
@@ -25,24 +36,17 @@ public class PokeDex {
 	}
 	
 	public void printPokeDex() {
-		System.out.println("잡은 포켓몬 리스트를 출력합니다\n");
-		for (int i = 0; i < this.pokeDex.length; i++) {
+		System.out.println("포켓몬 도감을 출력합니다\n");
+		for (int i = 1; i < this.pokeDex.length; i++) {// i = 1 부터 해야 0번(못마주침)출력안함
 			System.out.println("---------------------------------\n");
+			this.RPad(i);
 			if (this.pokeDex[i].ifCatch) {//true = 잡힌거
 				
-				String Rpad = ""; // 도감번호 Rpad 함수
-				for (int j = 0; j < 4; j ++) {
-					
-					if (Rpad.length() + String.valueOf(i).length() == 4) {
-						break;
-					}else {
-						Rpad = Rpad + "0";
-					}
-				}	
-				//출력
-				System.out.println("도감 번호 : No." + Rpad + i);
-				System.out.println("포켓몬 이름 : " + "잉어킹");
-				System.out.println("포켓몬 설명 : " + "쓸모없다\n");					
+				System.out.println("포켓몬 이름 : " + this.pokeDex[i].name);
+				System.out.println("포켓몬 출현장소 : " + this.pokeDex[i].spawnMap);
+				System.out.println("포켓몬 설명 : " + this.pokeDex[i].present + "\n");					
+			}else {
+				System.out.println("아직 못잡은 포켓몬 입니다 화이팅!\n");
 			}
 			System.out.println("---------------------------------\n");	
 		}
@@ -55,5 +59,21 @@ public class PokeDex {
 			}
 		}
 		
+	}
+	
+
+	
+	private void RPad (int i) {
+		String RPad = ""; // 도감번호 RPad 함수
+		for (int j = 0; j < 4; j ++) {
+			
+			if (RPad.length() + String.valueOf(i).length() == 4) {
+				break;
+			}else {
+				RPad = RPad + "0";
+			}
+		}	
+		//출력
+		System.out.println("도감 번호 : No." + RPad + i);
 	}
 }
