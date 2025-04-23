@@ -53,7 +53,7 @@ public class MonsterArrays {
 
 	// 땅맵에서 출현할 몬스터 등장확률
 	public MonsterBase earthMonsters() {
-		public MonsterBase[] earth = {
+		MonsterBase[] earth = {
 				// 최소 공배수 20
 				new Monster0(), // 아무것도 만나지 않았을 때 20% => 1/5 => 4/20 | 0~3
 				new Monster2(), // 피카츄 25% => 1/4 => 5/20 | 4~8
@@ -80,7 +80,7 @@ public class MonsterArrays {
 	// 바다맵에서 출현할 몬스터 등장확률
 	// 바다라는 망망대해에선 만나기 쉽지 않게 설정
 	public MonsterBase seaMonsters() {
-		public MonsterBase[] sea = {
+		MonsterBase[] sea = {
 				// 최소 공배수 20
 				new Monster0(), // 아무것도 만나지 않았을 때 40% => 2/5 => 8/20 | 0~7
 				new Monster1(), // 잉어킹 40% => 2/5 => 8/20 | 8~15
@@ -105,7 +105,7 @@ public class MonsterArrays {
 	
 	// 하늘맵에서 출현한 몬스터 등장확률
 	public MonsterBase skyMonsters() {
-		public MonsterBase[] sky = {
+		MonsterBase[] sky = {
 				// 최소 공배수 20
 				new Monster0(), // 아무것도 만나지 않았을 때 10% => 1/10 => 2/20 | 0~1
 				new Monster7(), // 뮤츠 40% => 2/5 => 8/20 | 2~9
@@ -131,7 +131,7 @@ public class MonsterArrays {
 	
 	// 우주맵(히든맵)에서 출현한 몬스터 등장확률
 	public MonsterBase universeMonsters() {
-		public MonsterBase[] universe = {
+		MonsterBase[] universe = {
 				// 최소 공배수 200
 				new Monster0(), // 아무것도 만나지 않았을 때 90% => 9/10 => 180/200 | 0~179
 				new Monster8(), // 디아루가 4% => 1/25 => 8/200 | 180~187
