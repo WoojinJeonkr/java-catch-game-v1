@@ -37,6 +37,19 @@ public class PokeDex {
 		this.pokeDex[10] = new Monster10();
 	}
 	
+	public void choicePokeDex() {
+		System.out.println("1,2번 중에 선택하세요");
+		System.out.println("1. 도감 전체보기");
+		System.out.println("2. 도감 검색하기");
+		Scanner scanner = new Scanner(System.in);
+		int userInput = Integer.parseInt(scanner.nextLine());
+		if (userInput == 1) {
+			this.printPokeDex();
+		}else {
+			this.searchPokeDex();
+		}
+	}
+	
 	public void printPokeDex() {
 		System.out.println("포켓몬 도감을 출력합니다\n");
 		for (int i = 1; i < this.pokeDex.length; i++) {// i = 1 부터 해야 0번(못마주침)출력안함
@@ -63,7 +76,7 @@ public class PokeDex {
 		
 	}
 	
-	public void findPokeDex() {
+	public void searchPokeDex() {
 		System.out.println("포켓몬 도감 검색하기");
 		System.out.println("포켓몬 도감번호와 이름을 출력합니다 원하시는 포켓몬의 도감번호를 입력해 주세요");
 		for (int i = 1; i < this.pokeDex.length; i++) {
