@@ -32,6 +32,7 @@ public class MonsterArrays {
 		System.out.println(this.n2/(double)9999);
 		System.out.println(this.n3/(double)9999);
 		System.out.println(this.n4/(double)9999);
+		System.out.println("총합: " + this.n1 + this.n2 + this.n3 + this.n4);
 		this.n1 = 0;
 		this.n2 = 0;
 		this.n3 = 0;
