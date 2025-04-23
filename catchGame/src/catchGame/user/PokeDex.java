@@ -1,5 +1,7 @@
 package catchGame.user;
 
+import java.util.Scanner;
+
 import catchGame.monster.Monster0;
 import catchGame.monster.Monster1;
 import catchGame.monster.Monster10;
@@ -53,7 +55,7 @@ public class PokeDex {
 	}
 	
 	public void updatePokeDex(String name) {
-		for (int i = 0; i < this.pokeDex.length; i++) {
+		for (int i = 1; i < this.pokeDex.length; i++) {
 			if(this.pokeDex[i].name.equals(name)){
 				this.pokeDex[i].ifCatch = true;
 			}
@@ -61,10 +63,34 @@ public class PokeDex {
 		
 	}
 	
-
+	public void findPokeDex() {
+		System.out.println("포켓몬 도감 검색하기");
+		System.out.println("포켓몬 도감번호와 이름을 출력합니다 원하시는 포켓몬의 도감번호를 입력해 주세요");
+		for (int i = 1; i < this.pokeDex.length; i++) {
+			this.RPad(i);
+			if (this.pokeDex[i].ifCatch) {//true = 잡힌거
+				System.out.println("포켓몬 이름 : " + this.pokeDex[i].name);
+			}else {
+				System.out.println("포켓몬 이름 : ???"); 
+			}
+		}
+		Scanner scanner = new Scanner(System.in);
+		System.out.print("도감번호 마지막 숫자 입력 : ");
+		int userInput = Integer.parseInt(scanner.nextLine());
+		System.out.println("---------------------------------\n");
+		if(this.pokeDex[userInput].ifCatch = true){
+			this.RPad(userInput);
+			System.out.println("포켓몬 이름 : " + this.pokeDex[userInput].name);
+			System.out.println("포켓몬 출현장소 : " + this.pokeDex[userInput].spawnMap);
+			System.out.println("포켓몬 설명 : " + this.pokeDex[userInput].present + "\n");
+		}else {
+			System.out.println(this.pokeDex[userInput].spawnMap + "에서 나타난다는 소문이 있다. 화이팅!");
+		}
+		
+	}
 	
 	private void RPad (int i) {
-		String RPad = ""; // 도감번호 RPad 함수
+		String RPad = ""; // 도감번호 RPad 매서드
 		for (int j = 0; j < 4; j ++) {
 			
 			if (RPad.length() + String.valueOf(i).length() == 4) {
