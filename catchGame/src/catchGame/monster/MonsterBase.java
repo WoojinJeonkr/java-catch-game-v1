@@ -10,24 +10,24 @@ import java.util.Random;
 // 우주 배열길이 11개
 
 public class MonsterBase {
-	Random r = new Random();
+	public Random r = new Random();
 	
 	// 몬스터 이름
-	String name;
+	public String name;
 	// 스폰 장소
-	String spawnMap;
+	public String spawnMap;
 	// 몬스터 소개란
-	String present;
+	public String present;
 	// 이 몬스터가 한 번이라도 잡혔는지 안 잡혔는지 판단
 	// true: 잡힌 거
 	// false: 안 잡힌 거
-	boolean ifCatch = false;
+	public boolean ifCatch = false;
 
-	MonsterBase() {
+	public MonsterBase() {
 		this.name = "기본";
 	}
-	
-	MonsterBase(String name) {
+
+	public MonsterBase(String name) {
 		this.name = name;
 	}
 	

@@ -4,7 +4,7 @@ package catchGame.Monster;
 // 아무것도 만나지 않았을 때
 public class Monster0 extends MonsterBase {
 	
-	int e;
+	public int e;
 	
 	// 아무것도 못 마주쳤을 때
 	public Monster0() {
