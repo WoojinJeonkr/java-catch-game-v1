@@ -4,7 +4,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class MapExploring {
-   String[] map = { "하늘", "바다", "산", "랜덤" };
+   String[] map = { "하늘", "바다", "산", "랜덤", "취소"};
    Scanner scanner = new Scanner(System.in);
    public String answerMap;
    public int mapIterationCount; // 맵 선택하기 반복 횟수
@@ -18,7 +18,7 @@ public class MapExploring {
       
       while (this.mapIndex == 1) {
          System.out.println("\n+++ 몬스터 잡기 게임 +++");
-            System.out.println("🗺️ 맵을 선택하세요 (하늘☁️ |바다🌊 |산🏔️ |랜덤🎲 )");
+            System.out.println("🗺️ 맵을 선택하세요 (하늘☁️ |바다🌊 |산🏔️ |랜덤🎲 |취소⚠️)");
             this.answerMap = scanner.nextLine();
             
             this.mapIndex = mapSelect(this.answerMap);
@@ -26,8 +26,12 @@ public class MapExploring {
             if (this.mapIndex == 0) {
                 System.out.println("\n>> 맵 이동중입니다...");
                 this.mapIterationCount++;
+				break;				
             }
-            break;
+			if(this.mapIndex == 1){
+				break;
+			}
+
       }
    }
 
@@ -46,9 +50,12 @@ public class MapExploring {
          String mapProbabilityAnswer = mapProbability();
          System.out.println(mapProbabilityAnswer + " 맵 페이지가 선택되었습니다");
          this.mapReturn = 0;
-      } else {
+      } else if (answerMap.equals("취소")) {
+		System.out.println("홈 페이지로 이동합니다");
+		this.mapReturn = 1;
+	  }else {
          System.out.println("잘못 입력하셨습니다");
-         this.mapReturn = 1;
+         this.mapReturn = 2;
       }
       return this.mapReturn;
    }
