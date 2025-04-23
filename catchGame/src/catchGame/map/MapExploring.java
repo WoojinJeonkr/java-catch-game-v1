@@ -8,15 +8,14 @@ public class MapExploring {
 	Scanner scanner = new Scanner(System.in);
 	public String answerMap;
 	public int mapIterationCount; // 맵 선택하기 반복 횟수
-	private int mapIndex = 1;
+	private int mapIndex = 2;
 	private int mapReturn;
-	private int visitCnt = 0;
 
 	public void mapInput(int mapCount) {
 		this.mapIterationCount = mapCount;
 
-		while (this.mapIndex == 1) {
-			if (visitCnt < 1) {
+		while (this.mapIndex == 2) {
+			if (this.mapIterationCount < 1) {
 				System.out.println("\n+++ 몬스터 잡기 게임 +++");
 			}
 			System.out.println("🗺️ 맵을 선택하세요 (하늘☁️ |바다🌊 |땅🌴 |랜덤🎲 |취소⚠️)");
@@ -41,7 +40,7 @@ public class MapExploring {
 		} else if (answerMap.equals("바다")) {
 			System.out.println("바다🌊 맵 페이지로 이동합니다");
 			this.mapReturn = 0;
-		} else if (answerMap.equals("산")) {
+		} else if (answerMap.equals("땅")) {
 			System.out.println("땅🌴 맵 페이지로 이동합니다");
 			this.mapReturn = 0;
 		} else if (answerMap.equals("랜덤")) {
@@ -59,18 +58,18 @@ public class MapExploring {
 		return this.mapReturn;
 	}
 
-	// 히든 맵 나올 확률 0.718% => 718/100000로 확률 조작
+	// 히든 맵 나올 확률 20%로 확률 조작
 	public String mapProbability() {
 		Random random = new Random();
-		int index = random.nextInt(100000);
-		if (index < 33093) {
+		int index = random.nextInt(15);
+		if (index < 4) {
 			return "하늘";
-		} else if (index < 66187) {
+		} else if (index < 8) {
 			return "바다";
-		} else if (index < 99281) {
+		} else if (index < 12) {
 			return "땅";
 		} else {
-			return "👏👏👏 히든";
+			return "👏👏👏 히든 우주";
 		}
 	}
 }
