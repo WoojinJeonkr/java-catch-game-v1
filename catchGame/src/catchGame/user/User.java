@@ -84,8 +84,10 @@ public class User {
 
 	// 맵 선택
 	public void selectMap() {
-		this.mapExploring.mapInput(this.mapExploring.mapIterationCount);
-		this.location = this.mapExploring.answerMap;
+		MapExploring newMap = new MapExploring();
+		newMap.mapInput(this.mapExploring.mapIterationCount);
+		this.mapExploring = newMap;
+		this.location = newMap.answerMap;
 	}
 
 	// 유저 정보 출력
