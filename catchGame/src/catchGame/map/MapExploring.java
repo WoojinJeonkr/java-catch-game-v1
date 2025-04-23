@@ -34,7 +34,6 @@ public class MapExploring {
 
       }
    }
-
    public int mapSelect(String answerMap) {
       if (answerMap.equals("하늘")) {
          System.out.println("하늘☁️ 맵 페이지로 이동합니다");
