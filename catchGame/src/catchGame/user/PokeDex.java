@@ -88,18 +88,23 @@ public class PokeDex {
 				System.out.println("포켓몬 이름 : ???");
 			}
 		}
-		Scanner scanner = new Scanner(System.in);
-		System.out.print("도감번호 마지막 숫자 입력 : ");
-		int userInput = Integer.parseInt(scanner.nextLine());
-		System.out.println("---------------------------------\n");
-		if (this.pokeDex[userInput].ifCatch = true) {
-			this.RPad(userInput);
-			System.out.println("포켓몬 이름 : " + this.pokeDex[userInput].name);
-			System.out.println("포켓몬 출현장소 : " + this.pokeDex[userInput].spawnMap);
-			System.out.println("포켓몬 설명 : " + this.pokeDex[userInput].present + "\n");
-		} else {
-			System.out.println(this.pokeDex[userInput].spawnMap + "에서 나타난다는 소문이 있다. 화이팅!");
+		try {
+			Scanner scanner = new Scanner(System.in);
+			System.out.print("도감번호 마지막 숫자 입력 : ");
+			int userInput = Integer.parseInt(scanner.nextLine());
+			System.out.println("---------------------------------\n");
+			if (this.pokeDex[userInput].ifCatch = true) {
+				this.RPad(userInput);
+				System.out.println("포켓몬 이름 : " + this.pokeDex[userInput].name);
+				System.out.println("포켓몬 출현장소 : " + this.pokeDex[userInput].spawnMap);
+				System.out.println("포켓몬 설명 : " + this.pokeDex[userInput].present + "\n");
+			} else {
+				System.out.println(this.pokeDex[userInput].spawnMap + "에서 나타난다는 소문이 있다. 화이팅!");
+			}
+		}catch(Exception e) {
+			System.out.println(e);
 		}
+
 
 	}
 
