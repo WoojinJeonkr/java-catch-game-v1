@@ -4,13 +4,12 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class MapExploring {
-   public String[] map = { "하늘", "바다", "산", "랜덤", "취소"};
+   public String[] map = { "하늘", "바다", "땅", "랜덤", "취소"};
    Scanner scanner = new Scanner(System.in);
    public String answerMap;
    public int mapIterationCount; // 맵 선택하기 반복 횟수
    public int answerGame; // SelectGame 번호 고르기
    private int mapIndex = 1;
-
    private int mapReturn;
 
    public void mapInput(int mapCount) {
@@ -18,7 +17,7 @@ public class MapExploring {
       
       while (this.mapIndex == 1) {
          System.out.println("\n+++ 몬스터 잡기 게임 +++");
-            System.out.println("🗺️ 맵을 선택하세요 (하늘☁️ |바다🌊 |산🏔️ |랜덤🎲 |취소⚠️)");
+            System.out.println("🗺️ 맵을 선택하세요 (하늘☁️ |바다🌊 |땅🌴 |랜덤🎲 |취소⚠️)");
             this.answerMap = scanner.nextLine();
             
             this.mapIndex = mapSelect(this.answerMap);
@@ -42,7 +41,7 @@ public class MapExploring {
          System.out.println("바다🌊 맵 페이지로 이동합니다");
          this.mapReturn = 0;
       } else if (answerMap.equals("산")) {
-         System.out.println("산🏔️ 맵 페이지로 이동합니다");
+         System.out.println("땅🌴 맵 페이지로 이동합니다");
          this.mapReturn = 0;
       } else if (answerMap.equals("랜덤")) {
          System.out.println("랜덤🎲 맵 페이지로 이동합니다");
@@ -68,7 +67,7 @@ public class MapExploring {
       } else if (index < 66187) {
          return "바다";
       } else if (index < 99281) {
-         return "산";
+         return "땅";
       } else {
          return "👏👏👏 히든";
       }
