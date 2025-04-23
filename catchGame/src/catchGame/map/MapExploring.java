@@ -10,12 +10,15 @@ public class MapExploring {
 	public int mapIterationCount; // 맵 선택하기 반복 횟수
 	private int mapIndex = 1;
 	private int mapReturn;
+	private int visitCnt = 0;
 
 	public void mapInput(int mapCount) {
 		this.mapIterationCount = mapCount;
 
 		while (this.mapIndex == 1) {
-			System.out.println("\n+++ 몬스터 잡기 게임 +++");
+			if (mapIterationCount < 1) {
+				System.out.println("\n+++ 몬스터 잡기 게임 +++");
+			}
 			System.out.println("🗺️ 맵을 선택하세요 (하늘☁️ |바다🌊 |땅🌴 |랜덤🎲 |취소⚠️)");
 			this.answerMap = scanner.nextLine();
 			this.mapIndex = mapSelect(this.answerMap);
