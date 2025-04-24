@@ -25,7 +25,7 @@ public class GameManager {
 		System.out.println("3. 몬스터 검색하기");
 		System.out.println("4. 내 정보 보기");
 		System.out.println("5. 게임 종료");
-		System.out.print("메뉴를 선택하세요 (1-4): ");
+		System.out.print("메뉴를 선택하세요 (1-5): ");
 		String inputChoice = scanner.nextLine();
 		inputChoice = inputChoice.replace(" ", "");
 		switch (inputChoice) {
