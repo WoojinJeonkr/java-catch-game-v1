@@ -71,7 +71,8 @@ public class Monster4 extends MonsterBase {
 	// 50% => 1/2
 	// 반환 값 => 잡혔을 때:true | 아닐 때:false
 	@Override
-	public boolean catchMonster() {
+	public boolean catchMonster() throws InterruptedException {
+		delayTime();
 		// 잡혔을 때 true
 		if (this.r.nextInt(2) + 1 == 1) {
 			System.out.println("=========포켓몬 포획 성공!=========");

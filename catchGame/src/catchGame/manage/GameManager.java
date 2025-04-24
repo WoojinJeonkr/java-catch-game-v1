@@ -20,9 +20,9 @@ public class GameManager {
 		System.out.println("\n=== 몬스터 잡기 게임 ===");
 		System.out.println("1. 맵 선택하기");
 		System.out.println("2. 몬스터 도감 보기");
-		System.out.println("3. 내 정보 보기");
-		System.out.println("4. 게임 종료");
-		System.out.println("4. 게임 종료");
+		System.out.println("3. 몬스터 검색하기");
+		System.out.println("4. 내 정보 보기");
+		System.out.println("5. 게임 종료");
 		System.out.print("메뉴를 선택하세요 (1-4): ");
 		int inputChoice = scanner.nextInt();
 
@@ -50,11 +50,14 @@ public class GameManager {
 			printUserAction();
 			break;
 		case 3:
+			user.searchTotalPokeDex();
+			break;
+		case 4:
 			System.out.println("\n>> 내 정보를 확인합니다.");
 			// 사용자 정보 출력
 			user.printUserInfo();
 			break;
-		case 4:
+		case 5:
 			System.out.println("\n>> 게임을 종료합니다. 감사합니다!");
 			this.isRunning = false;
 			break;
@@ -64,16 +67,23 @@ public class GameManager {
 	}
 
 	public void printUserAction() throws InterruptedException {
+		Scanner scanner = new Scanner(System.in);
 		while (true) {
 			System.out.println("\n1. 계속 탐색하기 2. 다른 맵 이동 3. 도감 보기 4. 몬스터 검색 5. 홈으로 가기");
 			String ans = scanner.nextLine();
 			switch (ans) {
 			case "1":
+				System.out.println("\n>> 몬스터를 탐색 중입니다.");
+				Thread.sleep(1500);
+				System.out.println("\n>> ...");
+				Thread.sleep(1500);
+				System.out.println("\n>> ...");
 				user.catchMonster();
 				break;
 			case "2":
 				user.selectMap();
-				System.out.println("--" + user.location + "맵에 소환되었습니다--");
+				System.out.println("\n--" + user.location + "맵에 소환되었습니다--");
+				user.catchMonster();
 				break;
 			case "3":
 				user.printMyPokeDex();

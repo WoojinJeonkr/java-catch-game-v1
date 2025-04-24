@@ -42,7 +42,7 @@ public class User {
 
 		// 현재 지역에 맞는 몬스터 정보 가져와서 몬스터 등장 및 포획
 		this.loadFightMonster(monsterArrays, gameMap, isCatch);
-		
+
 		// 포획했다면 도감에 등록
 		if (isCatch) {
 			if (!catchMonsterName.equals("기본")) {
@@ -52,70 +52,82 @@ public class User {
 			}
 		}
 	}
-	
+
 	// 현재 지역에 맞는 몬스터 정보 가져와서 몬스터 등장 및 포획
-	private void loadFightMonster(MonsterArrays monsterArrays, String[] map, boolean isCatch) {
+	private void loadFightMonster(MonsterArrays monsterArrays, String[] map, boolean isCatch)
+			throws InterruptedException {
 		for (int i = 0; i < 4; i++) {
 			String nowLocation = map[i];
 			if (this.location.equals(nowLocation)) {
-				System.out.println("\n💥 몬스터를 만났다! 💥\n");
 				MonsterBase monster = null;
 				switch (nowLocation) {
-					case "하늘":
-						monster = monsterArrays.skyMonsters();
-						break;
-					case "바다":
-						monster = monsterArrays.skyMonsters();
-						break;
-					case "땅":
-						monster = monsterArrays.skyMonsters();
-						break;
-					case "우주":
-						monster = monsterArrays.universeMonsters();
-						break;
+				case "하늘":
+					monster = monsterArrays.skyMonsters();
+					break;
+				case "바다":
+					monster = monsterArrays.skyMonsters();
+					break;
+				case "땅":
+					monster = monsterArrays.skyMonsters();
+					break;
+				case "우주":
+					monster = monsterArrays.universeMonsters();
+					break;
+				}
+				if (monster.isMet == 1) {
+					System.out.println("\n💥 몬스터를 만났다! 💥\n");
+				} else {
+					System.out.println("\n😢 몬스터가 만나지 못했다... 😢\n");
 				}
 				this.checkMonster(monster); // 몬스터 조우 및 등장 문구 출력
-				this.catchFightMonster(monster, isCatch); // 몬스터 포획	
+				Thread.sleep(1500);
+				this.catchFightMonster(monster, isCatch); // 몬스터 포획
 			}
 		}
 	}
-		
-	
+
 	// 몬스터와의 조우 이벤트를 처리하고, 해당 몬스터의 등장 메시지를 출력
 	private void checkMonster(MonsterBase monster) {
-		System.out.println("\n몬스터 조우");
 		monster.appearanceComment();
 	}
-	
+
 	// 몬스터 포획
-	private void catchFightMonster(MonsterBase monster, boolean isCatch) {
+	private void catchFightMonster(MonsterBase monster, boolean isCatch) throws InterruptedException {
 		if (!monster.name.equals("기본")) {
 			String userChoice = this.checkUserChoice(monster); // 유저 선택
 			String catchMonsterName = monster.name;
 			if (userChoice.equalsIgnoreCase("Y")) {
 				// 몬스터가 기본이 아닐 경우 포획 로직
+				System.out.println("\n>> 싸우는 중");
+				Thread.sleep(1500);
+				System.out.println(">> ...");
+				Thread.sleep(1500);
+				System.out.println(">> ...\n");
+				Thread.sleep(1500);
 				this.fightMonster(monster, isCatch, catchMonsterName);
 			}
 			return;
 		}
 	}
-	
+
 	// 몬스터 조우 시 유저에게 싸울지 여부를 입력받아 반환
 	private String checkUserChoice(MonsterBase monster) {
-		System.out.print("\n싸우시겠습니까?(Y/N) ");
+		System.out.print("\n>> 싸우시겠습니까?(Y/N) ");
 		String userChoice = scanner.nextLine();
 		return userChoice;
 	}
-	
+
 	// 유저가 싸우기를 선택했을 경우 포획 로직을 수행
-	private void fightMonster(MonsterBase monster, boolean isCatch, String catchMonsterName) {
+	private void fightMonster(MonsterBase monster, boolean isCatch, String catchMonsterName)
+			throws InterruptedException {
 		this.catchMonster(monster, isCatch, catchMonsterName);
 		return;
 	}
-	
+
 	// 몬스터 포획 시 실행
-	private void catchMonster(MonsterBase monster, boolean isCatch, String catchMonsterName) {
-		if(monster.runMonster()) {
+	private void catchMonster(MonsterBase monster, boolean isCatch, String catchMonsterName)
+			throws InterruptedException {
+		if (monster.runMonster()) {
 			isCatch = monster.catchMonster();
 			catchMonsterName = monster.name;
 		}

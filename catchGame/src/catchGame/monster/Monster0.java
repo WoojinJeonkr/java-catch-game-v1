@@ -9,6 +9,8 @@ public class Monster0 extends MonsterBase {
 		this.present = "텅 빈 거리, 텅 빈 내 위장, 텅 빈 내 지갑";
 	}
 
+	public int isMet = 0;
+
 	// 마주쳤을 때
 	// 등장멘트
 	@Override
@@ -46,8 +48,7 @@ public class Monster0 extends MonsterBase {
 	// Monster0은 무조건 true 반환
 	@Override
 	public boolean catchMonster() throws InterruptedException {
-		System.out.println("...");
-		System.out.println();
+		delayTime();
 		this.ifCatch = true;
 		return true;
 	}

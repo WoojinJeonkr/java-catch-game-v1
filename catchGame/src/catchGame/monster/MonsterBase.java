@@ -12,7 +12,8 @@ public class MonsterBase {
 	public Random r = new Random();
 
 	public int probabilityValue;
-
+	// 조우했는지 안 했는지 여부 0. 못 만남 1. 만남
+	public int isMet = 1;
 	// 몬스터 이름
 	public String name;
 	// 스폰 장소
@@ -52,7 +53,15 @@ public class MonsterBase {
 	// 확률적으로 몬스터 잡거나 못잡는 이벤트 발생
 	// 잡히면 도감 등록을 해야함
 	// 반환 값 => 잡혔을 때:true | 아닐 때:false
-	public boolean catchMonster() {
+	public boolean catchMonster() throws InterruptedException {
+
 		return true;
+	}
+
+	public void delayTime() throws InterruptedException {
+		Thread.sleep(1500);
+		System.out.println("\n>> ...");
+		Thread.sleep(1500);
+		System.out.println("\n>> ...");
 	}
 }

@@ -25,6 +25,7 @@ public class MapExploring {
 			if (this.mapIndex == 0) {
 				Thread.sleep(1500);
 				System.out.println("\n>> 맵 이동중입니다...");
+				Thread.sleep(1500);
 				this.mapIterationCount++;
 				break;
 			}
@@ -36,7 +37,6 @@ public class MapExploring {
 	}
 
 	public int mapSelect(String answerMap) throws InterruptedException {
-		Thread.sleep(1500);
 		if (answerMap.equals("하늘")) {
 			System.out.println("하늘☁️ 맵 페이지로 이동합니다");
 			this.mapReturn = 0;
