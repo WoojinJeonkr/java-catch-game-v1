@@ -7,9 +7,8 @@ public class Monster0 extends MonsterBase {
 	public Monster0() {
 		// 이름은 '기본'으로 되어있음
 		this.present = "텅 빈 거리, 텅 빈 내 위장, 텅 빈 내 지갑";
+		this.isMet = 0;
 	}
-
-	public int isMet = 0;
 
 	// 마주쳤을 때
 	// 등장멘트
