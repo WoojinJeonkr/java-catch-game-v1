@@ -55,38 +55,33 @@ public class User {
 
 		boolean isCatch = false; // 포획 여부
 
-		// 맵 정보 배열로 정의 ("하늘", "바다", "산", "우주")
-		String[] gameMap = this.mapExploring.map;
-
 		// 현재 지역에 맞는 몬스터 정보 가져와서 몬스터 등장 및 포획
-		this.loadFightMonster(monsterArrays, gameMap, isCatch);
+		this.loadFightMonster(monsterArrays, this.location, isCatch);
 	}
 
 	// 현재 지역에 맞는 몬스터 정보 가져와서 몬스터 등장 및 포획
-	private void loadFightMonster(MonsterArrays monsterArrays, String[] map, boolean isCatch)
+	private void loadFightMonster(MonsterArrays monsterArrays, String mapInfo, boolean isCatch)
 			throws InterruptedException {
-		for (int i = 0; i < 4; i++) {
-			String nowLocation = map[i];
-			if (this.location.equals(nowLocation)) {
-				MonsterBase monster = null;
-				switch (nowLocation) {
-				case "하늘":
-					monster = monsterArrays.skyMonsters();
-					break;
-				case "바다":
-					monster = monsterArrays.seaMonsters();
-					break;
-				case "땅":
-					monster = monsterArrays.earthMonsters();
-					break;
-				case "우주":
-					monster = monsterArrays.universeMonsters();
-					break;
-				}
-				this.checkMonster(monster); // 몬스터 조우 및 등장 문구 출력
-				Thread.sleep(1500);
-				this.catchFightMonster(monster, isCatch); // 몬스터 포획
+		String nowLocation = mapInfo;
+		if (this.location.equals(nowLocation)) {
+			MonsterBase monster = null;
+			switch (nowLocation) {
+			case "하늘":
+				monster = monsterArrays.skyMonsters();
+				break;
+			case "바다":
+				monster = monsterArrays.seaMonsters();
+				break;
+			case "땅":
+				monster = monsterArrays.earthMonsters();
+				break;
+			case "우주":
+				monster = monsterArrays.universeMonsters();
+				break;
 			}
+			this.checkMonster(monster); // 몬스터 조우 및 등장 문구 출력
+			Thread.sleep(1500);
+			this.catchFightMonster(monster, isCatch); // 몬스터 포획
 		}
 	}
 
