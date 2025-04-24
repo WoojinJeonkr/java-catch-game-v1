@@ -38,7 +38,7 @@ public class PokeDex {
 	}
 
 	public void choicePokeDex() {
-		// TODO: 유저 행동 두가지로 나누기
+		// 안쓰는 함수 (사용은 가능)
 		System.out.println("1,2번 중에 선택하세요");
 		System.out.println("1. 도감 전체보기");
 		System.out.println("2. 도감 검색하기");
@@ -51,8 +51,9 @@ public class PokeDex {
 		}
 	}
 
+	// 포켓몬 도감 출력 잡은것만 세부사항출력 못잡은건 ???로 출력
 	public void printPokeDex() {
-		System.out.println("포켓몬 도감을 출력합니다\n");
+		System.out.println("포켓몬 도감을 출력합니다.\n");
 		for (int i = 1; i < this.pokeDex.length; i++) {// i = 1 부터 해야 0번(못마주침)출력안함
 			System.out.println("---------------------------------\n");
 			this.RPad(i);
@@ -62,12 +63,13 @@ public class PokeDex {
 				System.out.println("포켓몬 출현장소 : " + this.pokeDex[i].spawnMap);
 				System.out.println("포켓몬 설명 : " + this.pokeDex[i].present + "\n");
 			} else {
-				System.out.println("아직 못잡은 포켓몬 입니다 화이팅!\n");
+				System.out.println("아직 못잡은 포켓몬 입니다. 화이팅!\n");
 			}
 			System.out.println("---------------------------------\n");
 		}
 	}
 
+//	포켓몬 잡은 몬스터 잡았다고 최신화
 	public void updatePokeDex(String name) {
 		for (int i = 1; i < this.pokeDex.length; i++) {
 			if (this.pokeDex[i].name.equals(name)) {
@@ -77,9 +79,11 @@ public class PokeDex {
 
 	}
 
+//	검색하기 포켓몬 도감번호와 이름을 먼저 출력하고 , 검색하고 싶은 도감번호 입력받아서 그 도감번호 출력
 	public void searchPokeDex() {
+		System.out.println("---------------------------------\n");
 		System.out.println("포켓몬 도감 검색하기");
-		System.out.println("포켓몬 도감번호와 이름을 출력합니다 원하시는 포켓몬의 도감번호를 입력해 주세요");
+		System.out.println("포켓몬 도감번호와 이름을 출력합니다. 원하시는 포켓몬의 도감번호를 입력해 주세요\n");
 		for (int i = 1; i < this.pokeDex.length; i++) {
 			System.out.println("---------------------------------\n");
 			this.RPad(i);
@@ -95,7 +99,7 @@ public class PokeDex {
 			Scanner scanner = new Scanner(System.in);
 			System.out.print("원하시는 도감번호 앞 0을 제외한 1~10울 입력해 주세요 : ");
 			int userInput = Integer.parseInt(scanner.nextLine());
-			System.out.println("---------------------------------\n");
+			System.out.println("\n---------------------------------\n");
 			if (userInput <= 10 && 0 < userInput) {
 				if (this.pokeDex[userInput].ifCatch == true) {
 					this.RPad(userInput);
@@ -109,7 +113,7 @@ public class PokeDex {
 					System.out.println("---------------------------------\n");
 				}
 			}else {
-				System.out.println("도감번호 앞 0을 제외한 1~10 까지만을 입력해 주세요\n");
+				System.out.println("도감번호 앞 0을 제외한 1~10을 입력해 주세요\n");
 				this.searchPokeDex();
 				
 			}
@@ -120,9 +124,11 @@ public class PokeDex {
 
 
 	}
-
+	
+//  도감번호 RPad 매서드
+//	도감번호 항상 4자리 유지
 	private void RPad(int i) {
-		String RPad = ""; // 도감번호 RPad 매서드
+		String RPad = ""; 
 		for (int j = 0; j < 4; j++) {
 
 			if (RPad.length() + String.valueOf(i).length() == 4) {
