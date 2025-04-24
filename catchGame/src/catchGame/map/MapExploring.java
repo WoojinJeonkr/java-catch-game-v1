@@ -21,6 +21,7 @@ public class MapExploring {
 			}
 			System.out.println("🗺️ 맵을 선택하세요 (하늘☁️ |바다🌊 |땅🌴 |랜덤🎲 |취소⚠️)");
 			this.answerMap = scanner.nextLine();
+			this.answerMap = this.answerMap.replace(" ", "");
 			this.mapIndex = mapSelect(this.answerMap);
 			if (this.mapIndex == 0) {
 				Thread.sleep(1500);

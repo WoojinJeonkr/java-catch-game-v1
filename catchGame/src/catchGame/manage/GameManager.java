@@ -25,16 +25,17 @@ public class GameManager {
 		System.out.println("4. 내 정보 보기");
 		System.out.println("5. 게임 종료");
 		System.out.print("메뉴를 선택하세요 (1-4): ");
-		int inputChoice = scanner.nextInt();
-
+		String inputChoice = scanner.nextLine();
+		inputChoice = inputChoice.replace(" ", "");
 		switch (inputChoice) {
-		case 1:
+		case "1":
 			this.user.selectMap();
 			if (this.user.location.equals("취소")) {
 				return;
 			} else if (this.user.location.equals("집")) {
 				return;
 			}
+
 			System.out.println();
 			Thread.sleep(1500);
 			System.out.println("--" + user.location + "맵에 소환되었습니다" + "--");
@@ -50,21 +51,21 @@ public class GameManager {
 			user.catchMonster();
 			printUserAction();
 			break;
-		case 2:
+		case "2":
 			System.out.println("\n>> 나의 몬스터 도감을 확인합니다.");
 			// 도감 출력 메서드 호출
 			user.printMyPokeDex();
 			printUserAction();
 			break;
-		case 3:
+		case "3":
 			user.searchTotalPokeDex();
 			break;
-		case 4:
+		case "4":
 			System.out.println("\n>> 내 정보를 확인합니다.");
 			// 사용자 정보 출력
 			user.printUserInfo();
 			break;
-		case 5:
+		case "5":
 			System.out.println("\n>> 게임을 종료합니다. 감사합니다!");
 			this.isRunning = false;
 			break;
@@ -78,6 +79,7 @@ public class GameManager {
 		while (true) {
 			System.out.println("\n1. 계속 탐색하기 2. 다른 맵 이동 3. 도감 보기 4. 몬스터 검색 5. 홈으로 가기");
 			String ans = scanner.nextLine();
+			ans = ans.replace(" ", "");
 
 			switch (ans) {
 			case "1":
