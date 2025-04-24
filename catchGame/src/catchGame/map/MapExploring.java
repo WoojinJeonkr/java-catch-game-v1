@@ -5,10 +5,10 @@ import java.util.Scanner;
 
 public class MapExploring {
 	public String[] map = { "하늘", "바다", "땅", "랜덤", "취소" };
-//	public String[] map = { "하늘", "바다", "땅", "우주" };
 	Scanner scanner = new Scanner(System.in);
 	public String answerMap;
 	public int mapIterationCount; // 맵 선택하기 반복 횟수
+	public String mapProbabilityAnswer;
 	private int mapIndex = 2;
 	private int mapReturn;
 
@@ -48,9 +48,8 @@ public class MapExploring {
 			this.mapReturn = 0;
 		} else if (answerMap.equals("랜덤")) {
 			System.out.println("랜덤🎲 맵 페이지로 이동합니다");
-			String mapProbabilityAnswer = mapProbability();
+			mapProbabilityAnswer = mapProbability();
 			System.out.println(mapProbabilityAnswer + " 맵 페이지가 선택되었습니다");
-			answerMap = mapProbabilityAnswer;
 			this.mapReturn = 0;
 		} else if (answerMap.equals("취소")) {
 			System.out.println("홈 페이지로 이동합니다");
