@@ -15,11 +15,11 @@ import catchGame.monster.Monster8;
 import catchGame.monster.Monster9;
 import catchGame.monster.MonsterBase;
 
-public class PokeDex {
+public class PokeDexClass {
 
 	MonsterBase[] pokeDex; // MonsterBase 객체 데이터 배열 생성
 
-	PokeDex() {
+	PokeDexClass() {
 		this.pokeDex = new MonsterBase[11]; // MonsterBase 객체 데이터 11개 배열 생성자에서 초기화
 	}
 
