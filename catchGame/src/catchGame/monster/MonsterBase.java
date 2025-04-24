@@ -59,9 +59,9 @@ public class MonsterBase {
 	}
 
 	public void delayTime() throws InterruptedException {
-		Thread.sleep(1500);
+		Thread.sleep(500);
 		System.out.println("\n>> ...");
-		Thread.sleep(1500);
+		Thread.sleep(500);
 		System.out.println("\n>> ...");
 	}
 }

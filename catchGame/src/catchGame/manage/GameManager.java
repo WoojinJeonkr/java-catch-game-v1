@@ -39,15 +39,15 @@ public class GameManager {
 			}
 
 			System.out.println();
-			Thread.sleep(900);
+			Thread.sleep(500);
 			System.out.println("--" + user.location + "맵에 소환되었습니다" + "--");
-			Thread.sleep(900);
+			Thread.sleep(500);
 			System.out.println("(..두리번...두리번..)");
-			Thread.sleep(900);
+			Thread.sleep(500);
 			System.out.println("\n>> 몬스터를 탐색 중입니다.");
-			Thread.sleep(900);
+			Thread.sleep(500);
 			System.out.println("\n>> ...");
-			Thread.sleep(900);
+			Thread.sleep(500);
 			System.out.println("\n>> ...");
 
 			user.catchMonster();
@@ -87,9 +87,9 @@ public class GameManager {
 			switch (ans) {
 			case "1":
 				System.out.println("\n>> 몬스터를 탐색 중입니다.");
-				Thread.sleep(1500);
+				Thread.sleep(500);
 				System.out.println("\n>> ...");
-				Thread.sleep(1500);
+				Thread.sleep(500);
 				System.out.println("\n>> ...");
 				user.catchMonster();
 				break;
