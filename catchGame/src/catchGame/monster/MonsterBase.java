@@ -42,6 +42,7 @@ public class MonsterBase {
 	// 유저가 싸운다 or 도망친다에서 '싸운다' 선택지가 선택 경우
 	// 확률적으로 몬스터가 도망치는 메서드
 	// 그 뒤 이동을 하든 지시 메뉴가 떠야됨
+	// 반환 값 => 도망칠 때:false | 안도망칠 때:true
 	public boolean runMonster() {
 		return true;
 	}
@@ -50,7 +51,8 @@ public class MonsterBase {
 	// 유저가 '싸운다' 라는 선택지를 선택 할 경우
 	// 확률적으로 몬스터 잡거나 못잡는 이벤트 발생
 	// 잡히면 도감 등록을 해야함
-	public boolean catchMonster() throws InterruptedException {
+	// 반환 값 => 잡혔을 때:true | 아닐 때:false
+	public boolean catchMonster() {
 		return true;
 	}
 }

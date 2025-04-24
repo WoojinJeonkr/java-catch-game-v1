@@ -13,6 +13,7 @@ public class Monster7 extends MonsterBase {
 	// 등장멘트
 	@Override
 	public void appearanceComment() {
+		System.out.println("=========포켓몬 조우=========");
 		this.probabilityValue = r.nextInt(3);
 		if(this.probabilityValue == 0) {
 			System.out.println("\"머릿속에 직접 들려오는 목소리… 눈앞에 뮤츠가 나타났다!\"\n" +
@@ -28,19 +29,22 @@ public class Monster7 extends MonsterBase {
 					"➤ \"나는 싸움을 원치 않는다. 단, 이기기 전까진.\"\n" +
 					"(심오한 말투로 등장했지만, 은근히 싸움 좋아하는 타입이다.)");
 		}
+		System.out.println();
 	}
 	
 	
 	// 도망칠 확률 "개별사건"
 	// 15% => 3/20
 	// 랜덤 값 1~3 나오면 도망, 그외 숫자 안 도망침
+	// 반환 값 => 도망칠 때:false | 안도망칠 때:true
 	@Override
 	public boolean runMonster() {
 		this.probabilityValue = r.nextInt(3);
 
 
-		// 도망칠 때
+		// 도망칠 때 false
 		if(this.r.nextInt(20) + 1 <= 3) {
+			System.out.println("=========포켓몬이 도망쳤다!=========");
 			if(this.probabilityValue == 0) {
 				System.out.println("\"15% 확률로 뮤츠가 갑자기 눈을 감더니 사라졌다!\"\n" +
 						"➤ \"...넌 아직 나를 상대할 준비가 안 됐다.\"\n" +
@@ -55,9 +59,11 @@ public class Monster7 extends MonsterBase {
 						"➤ (그리고 뮤츠는 전자기파와 함께 도망쳤다.)\n" +
 						"(진짜 이유는 점심시간이다.)");
 			}
+			System.out.println();
 			return false;
 		}
-		// 안 도망칠 때
+		// 안 도망칠 때 true
+		System.out.println("=========포켓몬이 도망치지 않았다!=========");
 		if(this.probabilityValue == 0) {
 			System.out.println("\"85% 확률로 뮤츠가 당신을 똑바로 응시하고 있다. 절대 도망칠 생각은 없는 듯하다.\"\n" +
 					"➤ \"네 생각은… 읽었다. 그래도 상대해주지.\"\n" +
@@ -72,6 +78,7 @@ public class Monster7 extends MonsterBase {
 					"➤ \"이 세계에서 도망칠 건 너다.\"\n" +
 					"(이쯤 되면 누가 주인공인지 헷갈린다.)");
 		}
+		System.out.println();
 		return true;
 	}
 	
@@ -80,18 +87,22 @@ public class Monster7 extends MonsterBase {
 	// 반환 값 => 잡혔을 때:true | 아닐 때:false
 	@Override
 	public boolean catchMonster() {
-		// 잡혔을 때 
+		// 잡혔을 때 true
 		if(this.r.nextInt(4) + 1 == 1) {
+			System.out.println("=========포켓몬 포획 성공!=========");
 			System.out.println("\"25% 확률로 뮤츠가 포켓볼에 갇힌 순간, 전 우주의 지적 생명체들이 충격에 빠졌다!\"\n" +
 					"➤ \"잠깐만… 이거 시뮬레이션 아니야? 나 진짜 잡힌 거야?!\"\n" +
 					"(현실인지 가상현실인지, 뮤츠도 헷갈리는 중.)");
-			// 잡혔을 때
+			System.out.println();
 			this.ifCatch = true;
 			return true;
 		}
+		// 안 잡혔을 때 false
+		System.out.println("=========포켓몬 포획 실패!=========");
 		System.out.println("\"75% 확률로 뮤츠가 볼 안에서 순간이동으로 빠져나왔다! 전설은 갇히지 않는다.\"\n" +
 				"➤ \"넌 나를 가둘 수 없다. 포켓볼도 그렇고, 기대도 마찬가지야.\"\n" +
 				"(명대사 제조기 뮤츠, 탈출하면서도 멘트는 기가 막히다.)");
+		System.out.println();
 		return false;
 	}
 	

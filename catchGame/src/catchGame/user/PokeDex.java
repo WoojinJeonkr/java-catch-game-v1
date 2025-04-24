@@ -81,28 +81,41 @@ public class PokeDex {
 		System.out.println("포켓몬 도감 검색하기");
 		System.out.println("포켓몬 도감번호와 이름을 출력합니다 원하시는 포켓몬의 도감번호를 입력해 주세요");
 		for (int i = 1; i < this.pokeDex.length; i++) {
+			System.out.println("---------------------------------\n");
 			this.RPad(i);
 			if (this.pokeDex[i].ifCatch) {// true = 잡힌거
-				System.out.println("포켓몬 이름 : " + this.pokeDex[i].name);
+				System.out.println("포켓몬 이름 : " + this.pokeDex[i].name + "\n");
 			} else {
-				System.out.println("포켓몬 이름 : ???");
+				System.out.println("포켓몬 이름 : ???\n");
 			}
+			
 		}
+		System.out.println("---------------------------------\n");
 		try {
 			Scanner scanner = new Scanner(System.in);
-			System.out.print("도감번호 마지막 숫자 입력 : ");
+			System.out.print("원하시는 도감번호 앞 0을 제외한 1~10울 입력해 주세요 : ");
 			int userInput = Integer.parseInt(scanner.nextLine());
 			System.out.println("---------------------------------\n");
-			if (this.pokeDex[userInput].ifCatch = true) {
-				this.RPad(userInput);
-				System.out.println("포켓몬 이름 : " + this.pokeDex[userInput].name);
-				System.out.println("포켓몬 출현장소 : " + this.pokeDex[userInput].spawnMap);
-				System.out.println("포켓몬 설명 : " + this.pokeDex[userInput].present + "\n");
-			} else {
-				System.out.println(this.pokeDex[userInput].spawnMap + "에서 나타난다는 소문이 있다. 화이팅!");
+			if (userInput <= 10 && 0 < userInput) {
+				if (this.pokeDex[userInput].ifCatch == true) {
+					this.RPad(userInput);
+					System.out.println("포켓몬 이름 : " + this.pokeDex[userInput].name);
+					System.out.println("포켓몬 출현장소 : " + this.pokeDex[userInput].spawnMap);
+					System.out.println("포켓몬 설명 : " + this.pokeDex[userInput].present + "\n");
+					System.out.println("---------------------------------\n");
+				} else {
+					this.RPad(userInput);
+					System.out.println(this.pokeDex[userInput].spawnMap + "에서 나타난다는 소문이 있다. 화이팅!\n");
+					System.out.println("---------------------------------\n");
+				}
+			}else {
+				System.out.println("도감번호 앞 0을 제외한 1~10 까지만을 입력해 주세요\n");
+				this.searchPokeDex();
+				
 			}
 		}catch(Exception e) {
-			System.out.println(e);
+			System.out.println("숫자만 입력 가능합니다\n");
+			this.searchPokeDex();
 		}
 
 
