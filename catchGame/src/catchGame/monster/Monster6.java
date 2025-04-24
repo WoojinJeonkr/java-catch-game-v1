@@ -13,6 +13,7 @@ public class Monster6 extends MonsterBase{
 	// 등장멘트
 	@Override
 	public void appearanceComment() {
+		System.out.println("=========포켓몬 조우=========");
 		this.probabilityValue = r.nextInt(3);
 		if(this.probabilityValue == 0) {
 			System.out.println("\"지면이 흔들린다… 아니, 바다가 흔들린다! 그란돈이 모습을 드러냈다!\"\n" +
@@ -28,18 +29,21 @@ public class Monster6 extends MonsterBase{
 					"➤ \"그라..돈\"\n" +
 					"(아니 이새끼가 왜 바다에..?)");
 		}
+		System.out.println();
 	}
 	
 	
 	// 도망칠 확률 "개별사건"
 	// 3% => 3/100
 	// 랜덤 값 1~3 나오면 도망, 그외 숫자 안 도망침
+	// 반환 값 => 도망칠 때:false | 안도망칠 때:true
 	@Override
 	public boolean runMonster() {
 		this.probabilityValue = r.nextInt(3);
 
-		// 도망칠 때
+		// 도망칠 때 false
 		if(this.r.nextInt(100) + 1 <= 3) {
+			System.out.println("=========포켓몬이 도망쳤다!=========");
 			if(this.probabilityValue == 0) {
 				System.out.println("\"3% 확률로 그란돈이 뒤돌아 떠나고 있다! 땅 포켓몬 헤엄 수준이 전문가입니다.\"\n" +
 						"➤ \"그라라라라\"\n" +
@@ -54,9 +58,11 @@ public class Monster6 extends MonsterBase{
 						"➤ \"그라~돈!\"\n" +
 						"(엄청난 크기에도 불구하고, 그란돈은 눈에 띄지 않게 사라진다.)");
 			}
+			System.out.println();
 			return false;
 		}
-		// 안 도망칠 때
+		// 안 도망칠 때 true
+		System.out.println("=========포켓몬이 도망치지 않았다!=========");
 		if(this.probabilityValue == 0) {
 			System.out.println("\"97% 확률로 그란돈이 도망가지 않는다! 이 정도로 굳건한 대지..아니 바다라면 도망칠 수 없다!\"\n" +
 					"➤ \"...\"\n" +
@@ -71,6 +77,7 @@ public class Monster6 extends MonsterBase{
 					"➤ \"그라..돈!\"\n" +
 					"(도망칠 필요가 없는 그란돈, 사방이 바다이다)");
 		}
+		System.out.println();
 		return true;
 	}
 	
@@ -83,6 +90,7 @@ public class Monster6 extends MonsterBase{
 
 		// 잡혔을 때 
 		if(this.r.nextInt(5) + 1 <= 2) {
+			System.out.println("=========포켓몬 포획 성공!=========");
 			if(this.probabilityValue == 0) {
 				System.out.println("\"40% 확률로 그란돈이 포켓볼에 갇혔다! 이게 가능한 일이었나?! 바다여서 가능했나보다!\"\n" +
 						"➤ \"그라~돈 (대지의 신, 포켓볼 안에 갇히다니!)\"\n" +
@@ -97,10 +105,12 @@ public class Monster6 extends MonsterBase{
 						"➤ \"그라~돈! (내가, 내가 갇혔다구?! 대체 언제 이런 일이…?)\"\n" +
 						"(그란돈이 포켓볼 안에서 커다란 한숨을 내쉰다. 그래도 포켓볼 안에서 굴러다닌다.)");
 			}
+			System.out.println();
 			this.ifCatch = true;
 			return true;
 		}
 		// 안 잡혔을 때
+		System.out.println("=========포켓몬 포획 실패!=========");
 		if(this.probabilityValue == 0) {
 			System.out.println("\"60% 확률로 그란돈이 포켓볼에서 빠져나갔다! 대지의 힘으로 벗어나버렸다!\"\n" +
 					"➤ \"그라라라라~ (너희들이 날 막을 수 있다고 생각했어?)\"\n" +
@@ -115,6 +125,7 @@ public class Monster6 extends MonsterBase{
 					"➤ \"그라라라~돈! (포켓볼로 날 가둘 수는 없다!)\"\n" +
 					"(그란돈은 포켓볼을 불태운 후, 다시 지구의 신처럼 바다 한 가운데에 우뚝 서 있다.)");
 		}
+		System.out.println();
 		return false;
 	}
 	

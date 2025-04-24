@@ -13,6 +13,7 @@ public class Monster9 extends MonsterBase {
 	// 등장멘트
 	@Override
 	public void appearanceComment() {
+		System.out.println("=========포켓몬 조우=========");
 		this.probabilityValue = r.nextInt(3);
 		if (this.probabilityValue == 0) {
 			System.out.println("\"공간이 일그러지며 차원이 열렸다… 펄기아가 나타났다!\"\n" +
@@ -28,18 +29,21 @@ public class Monster9 extends MonsterBase {
 					"➤ \"지금 널 시험할게… 내가 너에게 머물 가치가 있는지.\"\n" +
 					"(그녀의 목소리는 차분하지만, 그 안엔 묘한 떨림이 섞여 있다.)");
 		}
+		System.out.println();
 	}
 	
 	
 	// 도망칠 확률 "개별사건"
 	// 4.7% => 47/1000
 	// 랜덤 값 1~47 나오면 도망, 그외 숫자 안 도망침
+	// 반환 값 => 도망칠 때:false | 안도망칠 때:true
 	@Override
 	public boolean runMonster() {
 		this.probabilityValue = r.nextInt(3);
 
-		// 도망칠 때
+		// 도망칠 때 false
 		if(this.r.nextInt(1000) + 1 <= 47) {
+			System.out.println("=========포켓몬이 도망쳤다!=========");
 			if (this.probabilityValue == 0) {
 				System.out.println("\"너는 망설임 끝에 등을 돌려 도망쳤다…\"\n" +
 						"➤ \"…흥. 결국 그런 선택이군.\"\n" +
@@ -54,9 +58,11 @@ public class Monster9 extends MonsterBase {
 						"➤ \"다음에 만났을 땐, 그렇게 쉽게 도망칠 수 없을 거야.\"\n" +
 						"(펄기아의 마지막 말이 귓가를 스친다. 하지만 그녀는 이미 사라지고 없다.)");
 			}
+			System.out.println();
 			return false;
 		}
-		// 안 도망칠 때
+		// 안 도망칠 때 true
+		System.out.println("=========포켓몬이 도망치지 않았다!=========");
 		if (this.probabilityValue == 0) {
 			System.out.println("\"너는 눈을 똑바로 뜨고 그녀를 바라보았다. 두려움은 있었지만, 물러서지 않았다.\"\n" +
 					"➤ \"…좋아. 그 눈빛, 가볍게 본 내가 실수였나 봐.\"\n" +
@@ -71,6 +77,7 @@ public class Monster9 extends MonsterBase {
 					"➤ \"흐응… 그런 각오라면, 조금 진심을 내볼까.\"\n" +
 					"(펄기아는 손끝을 들어올리며, 주위를 감싸던 에너지를 집중시키기 시작한다.)");
 		}
+		System.out.println();
 		return true;
 	}
 	
@@ -81,8 +88,9 @@ public class Monster9 extends MonsterBase {
 	public boolean catchMonster() {
 		this.probabilityValue = r.nextInt(3);
 
-		// 잡혔을 때
+		// 잡혔을 때 true
 		if(this.r.nextInt(250) + 1 <= 3) {
+			System.out.println("=========포켓몬 포획 성공!=========");
 			if (this.probabilityValue == 0) {
 				System.out.println("\"1.2% 확률로  ……공간의 신인 내가, 이렇게까지 허락해주는 건…… 특.별.한. 거야.\"\n" +
 						"➤ \"이 포켓볼 안… 네 기척이 느껴져서, 이상하게… 안심돼…\"\n" +
@@ -97,10 +105,12 @@ public class Monster9 extends MonsterBase {
 						"➤ \"…내 공간의 일부로 너를 받아들이겠어. 책임져야 해… 그 마음까지.\"\n" +
 						"(신의 포켓몬은 조용히 눈을 감으며, 네 손안에 안긴다.)");
 			}
+			System.out.println();
 			this.ifCatch = true;
 			return true;
 		}
-		// 안 잡혔을 때
+		// 안 잡혔을 때 false
+		System.out.println("=========포켓몬 포획 실패!=========");
 		if (this.probabilityValue == 0) {
 			System.out.println("\"98.8% 확률로 펄기아는 포켓볼을 가볍게 피하며 속삭인다.\"\n" +
 					"➤ \"조상님이 안 도와주시나보다 제사를 잘 지내보도록 하자!\"\n" +
@@ -115,6 +125,7 @@ public class Monster9 extends MonsterBase {
 					"➤ \"조금만 더… 네가 나를 원한다고 믿게 된다면, 그땐…\"\n" +
 					"(공간이 일그러지며 그녀는 떠났고, 너의 손은 허공을 움켜쥐었다.)");
 		}
+		System.out.println();
 		return false;
 	}
 	
