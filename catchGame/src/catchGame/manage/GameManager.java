@@ -33,7 +33,7 @@ public class GameManager {
 			this.user.selectMap();
 			prevLocation = this.user.location;
 			// 맵 선택이 취소되었거나 집으로 이동한 경우 홈으로
-			if (this.user.location.equals("취소") || this.user.location.equals("집")) {
+			if (this.user.location.equals("취소")) {
 				System.out.println("\n>> 맵 선택이 취소되었습니다. 홈으로 돌아갑니다.");
 				return;
 			}
@@ -115,6 +115,7 @@ public class GameManager {
 				user.searchTotalPokeDex();
 				break;
 			case "5":
+				user.location = "집";
 				return;
 			default:
 				System.out.println("잘못된 입력입니다. 1 ~ 5 사이의 숫자를 입력하세요.");
