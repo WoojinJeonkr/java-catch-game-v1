@@ -56,7 +56,6 @@ public class MapExploring {
 			System.out.println(mapProbabilityAnswer + " 맵 페이지가 선택되었습니다");
 			this.mapReturn = 0;
 		} else if (answerMap.equals("취소")) {
-			System.out.println("홈 페이지로 이동합니다");
 			this.mapReturn = 1;
 		} else {
 			System.out.println("잘못 입력하셨습니다");

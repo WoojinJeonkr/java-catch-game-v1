@@ -32,6 +32,8 @@ public class GameManager {
 			this.user.selectMap();
 			if (this.user.location.equals("취소")) {
 				return;
+			} else if (this.user.location.equals("집")) {
+				return;
 			}
 			System.out.println();
 			Thread.sleep(1500);
@@ -93,10 +95,14 @@ public class GameManager {
 					System.out.println("\n--" + user.location + "맵에 소환되었습니다--");
 					user.catchMonster();
 					break;
+				} else if (this.user.location.equals("집")) {
+					break;
+				} else {
+					System.out.println("\n--" + user.location + "맵에 소환되었습니다--");
+					user.catchMonster();
+					break;
 				}
-				System.out.println("\n--" + user.location + "맵에 소환되었습니다--");
-				user.catchMonster();
-				break;
+
 			case "3":
 				user.printMyPokeDex();
 				break;
