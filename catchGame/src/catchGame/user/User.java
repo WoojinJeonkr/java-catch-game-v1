@@ -172,8 +172,15 @@ public class User {
 
 	// 맵 선택
 	public void selectMap() throws InterruptedException {
+		String prevLocation = this.location; // 이전 위치 저장
 		MapExploring newMap = new MapExploring();
 		newMap.mapInput(this.mapExploring.mapIterationCount);
+
+		if (newMap.mapProbabilityAnswer.equals("취소")) {
+			System.out.println("\n>> 맵 선택이 취소되었습니다. 이전 위치로 돌아갑니다.");
+			return;
+		}
+
 		this.mapExploring = newMap;
 		this.location = newMap.mapProbabilityAnswer;
 	}

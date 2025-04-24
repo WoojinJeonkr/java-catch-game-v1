@@ -7,6 +7,7 @@ import catchGame.user.User;
 public class GameManager {
 	private boolean isRunning; // 게임 상태
 	User user;
+
 	Scanner scanner = new Scanner(System.in);
 
 	// 객체 생성 시 user 객체 생성, 게임 상태 true로 설정
@@ -86,9 +87,12 @@ public class GameManager {
 				user.catchMonster();
 				break;
 			case "2":
+				String prevLocation = this.user.location;
 				user.selectMap();
-				if (this.user.location.equals("취소")) {
-					return;
+				if (this.user.location.equals(prevLocation)) {
+					System.out.println("\n--" + user.location + "맵에 소환되었습니다--");
+					user.catchMonster();
+					break;
 				}
 				System.out.println("\n--" + user.location + "맵에 소환되었습니다--");
 				user.catchMonster();
