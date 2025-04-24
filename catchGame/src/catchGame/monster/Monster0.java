@@ -14,6 +14,7 @@ public class Monster0 extends MonsterBase {
 	// 등장멘트
 	@Override
 	public void appearanceComment() {
+		System.out.println("=========아무것도 못 마주침=========");
 		this.probabilityValue = r.nextInt(3);
 		if(this.probabilityValue == 0) {
 			System.out.println("주변엔 아무것도 없는 거 같다..");
@@ -23,8 +24,12 @@ public class Monster0 extends MonsterBase {
 		} else {
 			System.out.println("전설의 아르세우스!는 커녕 아무것도 나오지 않았다..");
 		}
+		System.out.println();
 	}
 
+	// 반환 값 => 도망칠 때:false | 안도망칠 때:true
+	// Monster0은 무조건 false 반환
+	@Override
 	public boolean runMonster() {
 		this.probabilityValue = r.nextInt(3);
 
@@ -36,13 +41,16 @@ public class Monster0 extends MonsterBase {
 		} else {
 			System.out.println("자, 포켓몬의 흔적도 없고, 내 발자국만 남았다. 어디로 가야 하지? ...이동하자");
 		}
+		System.out.println();
 		return false;
 	}
 
-
+	// 반환 값 => 잡혔을 때:true | 아닐 때:false
+	// Monster0은 무조건 true 반환
 	@Override
 	public boolean catchMonster() {
 		System.out.println("...");
+		System.out.println();
 		this.ifCatch = true;
 		return true;
 	}

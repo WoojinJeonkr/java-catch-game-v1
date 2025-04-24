@@ -13,6 +13,7 @@ public class Monster5 extends MonsterBase {
 	// 등장멘트
 	@Override
 	public void appearanceComment() {
+		System.out.println("=========포켓몬 조우=========");
 		this.probabilityValue = r.nextInt(3);
 		if(this.probabilityValue == 0) {
 			System.out.println("\"바다 그 자체이자 바다의 행운 가이오가 등장! 봤으니 기도하자!\"\n" +
@@ -27,19 +28,21 @@ public class Monster5 extends MonsterBase {
 					"➤ \"가오가오가오!! (자, 누구부터 젖어볼래?)\"\n" +
 					"(물이 넘쳐흐르고, 심장은 쿵쿵! 분위기는 재난영화급.)");
 		}
+		System.out.println();
 	}
 	
 	
 	// 도망칠 확률 "개별사건"
 	// 89% => 89/100
 	// 랜덤 값 1~89 나오면 도망, 그외 숫자 안 도망침
+	// 반환 값 => 도망칠 때:false | 안도망칠 때:true
 	@Override
 	public boolean runMonster() {
 		this.probabilityValue = r.nextInt(3);
 
-
-		// 도망칠 때
+		// 도망칠 때 false
 		if(this.r.nextInt(100) + 1 <= 89) {
+			System.out.println("=========포켓몬이 도망쳤다!=========");
 			if (this.probabilityValue == 0) {
 				System.out.println("\"89% 확률로 가이오가가 도망쳤다! 갑자기 물보라를 일으키며 바다로 풍덩!\"\n" +
 						"➤ \"가오가오~ (비 오니까 더 젖기 전에 튄다!)\"\n" +
@@ -53,8 +56,10 @@ public class Monster5 extends MonsterBase {
 						"➤ \"가오가~ (다음엔 우산 쓰고 와라~)\"\n" +
 						"(트레이너는 젖은 채 멍하니 서 있다.)");
 			}
+			System.out.println();
 		}
-		// 안 도망칠 때
+		// 안 도망칠 때 true
+		System.out.println("=========포켓몬이 도망치지 않았다!=========");
 		if (this.probabilityValue == 0) {
 			System.out.println("\"11% 확률로 가이오가는 도망가지 않았다! 대신 구름이 더 몰려오고, 비가 쏟아지기 시작했다!\"\n" +
 					"➤ \"가오가오오~ (이제 시작이다, 우산 챙겼니?)\"\n" +
@@ -68,6 +73,7 @@ public class Monster5 extends MonsterBase {
 					"➤ \"가오… (내가 여길 왜 나왔더라?)\"\n" +
 					"(전설도 가끔 멘붕이 온다.)");
 		}
+		System.out.println();
 		return true;
 	}
 	
@@ -76,18 +82,22 @@ public class Monster5 extends MonsterBase {
 	// 반환 값 => 잡혔을 때:true | 아닐 때:false
 	@Override
 	public boolean catchMonster() {
-		// 잡혔을 때 
+		// 잡혔을 때 true
 		if(this.r.nextInt(100) + 1 <= 9) {
+			System.out.println("=========포켓몬 포획 성공!=========");
 			System.out.println("\"9% 확률로 믿기 힘들겠지만… 전설의 포켓몬 가이오가가 포켓볼에 들어갔다!\"\n" +
 					"➤ \"가아오오오… (내 체급에 맞는 방이 아닌데… 뭐, 살다 보면 이런 날도 있지)\"\n" +
 					"(가이오가는 포켓볼 안에서 몸을 접는 요가를 시작했다.)");
-			// 잡혔을 때
+			System.out.println();
 			this.ifCatch = true;
 			return true;
 		}
+		// 안 잡혔을 때 false
+		System.out.println("=========포켓몬 포획 실패!=========");
 		System.out.println("\"91% 확률로 가이오가는 잡히지 않았다! 포켓볼이 던져진 순간, 바닷물로 위장하고 사라졌다!\"\n" +
 				"➤ \"가오가오~ (전설은 쉽게 포켓볼에 담기지 않아!)\"\n" +
 				"(목숨 부지한걸로 만족하자)");
+		System.out.println();
 		return false;
 	}
 	

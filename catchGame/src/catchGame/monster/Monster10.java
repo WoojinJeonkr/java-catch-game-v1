@@ -13,6 +13,7 @@ public class Monster10 extends MonsterBase{
 	// 등장멘트
 	@Override
 	public void appearanceComment() {
+		System.out.println("=========포켓몬 조우=========");
 		this.probabilityValue = r.nextInt(3);
 		if (this.probabilityValue == 0) {
 			System.out.println("\"⚡시공간 서버 터졌습니다⚠️ 갑자기 하늘이 로그아웃하더니…\"\n" +
@@ -28,13 +29,16 @@ public class Monster10 extends MonsterBase{
 					"➤ \"이 세계는 내가 켰고, 내가 껄 수도 있어. 뭐, 니 선택이야.\"\n" +
 					"(말 끝나자마자 배경이 흑백으로 변함;; 뭔가 각 잡혔다.)");
 		}
+		System.out.println();
 	}
 	
 	
 	// 도망칠 확률 "개별사건"
 	// 0%
+	// Monster10.runMonster()은 무조건 true 반환
 	@Override
 	public boolean runMonster() {
+		System.out.println("=========포켓몬이 도망치지 않았다!=========");
 		this.probabilityValue = r.nextInt(3);
 		if (this.probabilityValue == 0) {
 			System.out.println("\"그는 조용히 널 바라보다가, 천천히 몸을 일으킨다.\"\n" +
@@ -50,7 +54,8 @@ public class Monster10 extends MonsterBase{
 					"➤ \"와, 재밌겠다. 근데 너 진짜 괜찮겠어? 이거 세이브 안 돼.\"\n" +
 					"(전투 필드가 자동으로 펼쳐진다. 너도 모르게 준비자세 들어감.)");
 		}
-		return true; // 안 도망침
+		System.out.println();
+		return true; // 안 도망침, 무조건 true
 	}
 	
 	// 잡힐 확률 "개별사건"
@@ -59,8 +64,9 @@ public class Monster10 extends MonsterBase{
 	@Override
 	public boolean catchMonster() {
 		this.probabilityValue = r.nextInt(3);
-		// 잡혔을 때 
+		// 잡혔을 때 true
 		if(this.r.nextInt(1000000) + 1 <= 23) {
+			System.out.println("=========포켓몬 포획 성공!=========");
 			if (this.probabilityValue == 0) {
 				System.out.println("\"0.0023% 확률로 헉?! 볼 안에 빨려 들어간다… 시스템 오류인가? 아니 이건—\"\n" +
 						"➤ \"...진짜로 날 잡았다고? 와, 이건 좀… 예상 밖인데.\"\n" +
@@ -75,10 +81,12 @@ public class Monster10 extends MonsterBase{
 						"➤ \"진짜 이래도 되는 거야…? 나 정도 되는 애가 이렇게…\"\n" +
 						"(그 순간, 네 포켓볼에서 미묘한 빛이 한 번 더 퍼졌다. 뭔가 심상치 않다.)");
 			}
+			System.out.println();
 			this.ifCatch = true;
 			return true;
 		}
-		// 안잡혔을 때
+		// 안잡혔을 때 false
+		System.out.println("=========포켓몬 포획 실패!=========");
 		if (this.probabilityValue == 0) {
 			System.out.println("\"99.9977% 확률로 볼에서 튕겨나온 순간, 차원이 잠깐 뒤틀린다.\"\n" +
 					"➤ \"...어이, 진짜 나를 잡으려고 한 거야? 그건 좀 무리수지.\"\n" +
@@ -93,6 +101,7 @@ public class Monster10 extends MonsterBase{
 					"➤ \"넌 이제 내 존재를 봤어. 그걸로도 꽤 대단한 거야.\"\n" +
 					"(아르세우스는 그렇게 사라진다. 마치 시험이 끝난 것처럼.)");
 		}
+		System.out.println();
 		return false;
 	}
 	
