@@ -39,12 +39,15 @@ public class MapExploring {
 	public int mapSelect(String answerMap) throws InterruptedException {
 		if (answerMap.equals("하늘")) {
 			System.out.println("하늘☁️ 맵 페이지로 이동합니다");
+			this.mapProbabilityAnswer = this.answerMap;
 			this.mapReturn = 0;
 		} else if (answerMap.equals("바다")) {
 			System.out.println("바다🌊 맵 페이지로 이동합니다");
+			this.mapProbabilityAnswer = this.answerMap;
 			this.mapReturn = 0;
 		} else if (answerMap.equals("땅")) {
 			System.out.println("땅🌴 맵 페이지로 이동합니다");
+			this.mapProbabilityAnswer = this.answerMap;
 			this.mapReturn = 0;
 		} else if (answerMap.equals("랜덤")) {
 			System.out.println("랜덤🎲 맵 페이지로 이동합니다");
