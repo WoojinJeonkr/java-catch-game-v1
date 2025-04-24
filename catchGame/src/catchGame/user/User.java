@@ -17,19 +17,19 @@ public class User {
 	// User 객체 생성 시 이름 입력받고, 새로운 도감 불러옴
 	public User() {
 		try {
-		    System.out.print("당신의 이름은? ");
-		    String input = scanner.nextLine();
-		    this.userName = customTrim(input);
+			System.out.print("당신의 이름은? ");
+			String input = scanner.nextLine();
+			this.userName = customTrim(input);
 
-		    if (customIsEmpty(this.userName)) {
-		        System.out.println("⚠️ 이름은 공백일 수 없습니다. 기본 이름으로 설정합니다.");
-		        this.userName = "트레이너";
-		    }
+			if (customIsEmpty(this.userName)) {
+				System.out.println("⚠️ 이름은 공백일 수 없습니다. 기본 이름으로 설정합니다.");
+				this.userName = "트레이너";
+			}
 		} catch (Exception e) {
-		    System.out.println("⚠️ 입력 도중 오류가 발생했습니다. 기본 이름으로 설정합니다.");
-		    this.userName = "트레이너";
+			System.out.println("⚠️ 입력 도중 오류가 발생했습니다. 기본 이름으로 설정합니다.");
+			this.userName = "트레이너";
 		}
-		
+
 		this.pokeDex = new PokeDex();
 		this.pokeDex.insertPokeDex();
 		this.mapExploring = new MapExploring();
@@ -85,6 +85,9 @@ public class User {
 				case "우주":
 					monster = monsterArrays.universeMonsters();
 					break;
+				case "집":
+					System.out.println("집으로 돌아왔습니다.");
+					break;
 				}
 				this.checkMonster(monster); // 몬스터 조우 및 등장 문구 출력
 				Thread.sleep(1500);
@@ -129,10 +132,10 @@ public class User {
 		while (true) {
 			userChoice = scanner.nextLine();
 			if (userChoice.equalsIgnoreCase("Y") || userChoice.equalsIgnoreCase("N")) {
-		        break;
-		    } else {
-		        System.out.println("⚠️ 잘못된 입력입니다. 'Y' 또는 'N'을 입력해주세요.");
-		    }
+				break;
+			} else {
+				System.out.println("⚠️ 잘못된 입력입니다. 'Y' 또는 'N'을 입력해주세요.");
+			}
 		}
 		return userChoice;
 	}
@@ -180,25 +183,26 @@ public class User {
 		System.out.println("사용자명: " + this.userName);
 		System.out.println("사용자 위치: " + this.location);
 	}
-	
+
 	// 앞뒤 공백 제거
 	public static String customTrim(String input) {
-	    if (input == null) return "";
-	    int start = 0;
-	    int end = input.length() - 1;
+		if (input == null)
+			return "";
+		int start = 0;
+		int end = input.length() - 1;
 
-	    while (start <= end && Character.isWhitespace(input.charAt(start))) {
-	        start++;
-	    }
-	    while (end >= start && Character.isWhitespace(input.charAt(end))) {
-	        end--;
-	    }
+		while (start <= end && Character.isWhitespace(input.charAt(start))) {
+			start++;
+		}
+		while (end >= start && Character.isWhitespace(input.charAt(end))) {
+			end--;
+		}
 
-	    return input.substring(start, end + 1);
+		return input.substring(start, end + 1);
 	}
 
 	// 문자열이 비었는지 확인
 	public static boolean customIsEmpty(String input) {
-	    return input == null || input.length() == 0;
+		return input == null || input.length() == 0;
 	}
 }

@@ -10,7 +10,7 @@ public class MapExploring {
 	public int mapIterationCount; // 맵 선택하기 반복 횟수
 	public String mapProbabilityAnswer;
 	private int mapIndex = 2;
-	private int mapReturn;
+	public int mapReturn;
 
 	public void mapInput(int mapCount) throws InterruptedException {
 		this.mapIterationCount = mapCount;
@@ -30,6 +30,7 @@ public class MapExploring {
 				break;
 			}
 			if (this.mapIndex == 1) {
+				mapProbabilityAnswer = "취소";
 				break;
 			}
 

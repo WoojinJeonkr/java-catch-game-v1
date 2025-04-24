@@ -28,7 +28,10 @@ public class GameManager {
 
 		switch (inputChoice) {
 		case 1:
-			this.user.selectMap(); //
+			this.user.selectMap();
+			if (this.user.location.equals("취소")) {
+				return;
+			}
 			System.out.println();
 			Thread.sleep(1500);
 			System.out.println("--" + user.location + "맵에 소환되었습니다" + "--");
@@ -40,6 +43,7 @@ public class GameManager {
 			System.out.println("\n>> ...");
 			Thread.sleep(1500);
 			System.out.println("\n>> ...");
+
 			user.catchMonster();
 			printUserAction();
 			break;
@@ -71,6 +75,7 @@ public class GameManager {
 		while (true) {
 			System.out.println("\n1. 계속 탐색하기 2. 다른 맵 이동 3. 도감 보기 4. 몬스터 검색 5. 홈으로 가기");
 			String ans = scanner.nextLine();
+
 			switch (ans) {
 			case "1":
 				System.out.println("\n>> 몬스터를 탐색 중입니다.");
