@@ -30,9 +30,10 @@ public class GameManager {
 		switch (inputChoice) {
 		case "1":
 			this.user.selectMap();
-			if (this.user.location.equals("취소")) {
-				return;
-			} else if (this.user.location.equals("집")) {
+
+			// 맵 선택이 취소되었거나 집으로 이동한 경우 홈으로
+			if (this.user.location.equals("취소") || this.user.location.equals("집")) {
+				System.out.println("\n>> 맵 선택이 취소되었습니다. 홈으로 돌아갑니다.");
 				return;
 			}
 
@@ -51,6 +52,7 @@ public class GameManager {
 			user.catchMonster();
 			printUserAction();
 			break;
+
 		case "2":
 			System.out.println("\n>> 나의 몬스터 도감을 확인합니다.");
 			// 도감 출력 메서드 호출
@@ -91,19 +93,18 @@ public class GameManager {
 				user.catchMonster();
 				break;
 			case "2":
-				String prevLocation = this.user.location;
 				user.selectMap();
-				if (this.user.location.equals(prevLocation)) {
-					System.out.println("\n--" + user.location + "맵에 소환되었습니다--");
-					user.catchMonster();
-					break;
-				} else if (this.user.location.equals("집")) {
-					break;
-				} else {
-					System.out.println("\n--" + user.location + "맵에 소환되었습니다--");
+
+				// 사용자가 "취소"를 선택했을 경우
+				if (this.user.location.equals("취소")) {
+					System.out.println("\n>> 맵 이동이 취소되었습니다. 현재 맵에서 계속 진행합니다.");
 					user.catchMonster();
 					break;
 				}
+
+				System.out.println("\n--" + user.location + "맵에 소환되었습니다--");
+				user.catchMonster();
+				break;
 
 			case "3":
 				user.printMyPokeDex();
