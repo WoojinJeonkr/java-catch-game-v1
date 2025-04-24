@@ -66,9 +66,11 @@ public class User {
 
 		// 포획했다면 도감에 등록
 		if (isCatch) {
-			System.out.println(catchMonsterName + " 포획 완료!");
-			this.updateMyPokeDex(catchMonsterName);
-			System.out.println(catchMonsterName + "(이)가 도감에 등록되었습니다.");
+			if (!catchMonsterName.equals("기본")) {
+				System.out.println(catchMonsterName + " 포획 완료!");
+				this.updateMyPokeDex(catchMonsterName);
+				System.out.println(catchMonsterName + "(이)가 도감에 등록되었습니다.");
+			}
 		}
 	}
 
