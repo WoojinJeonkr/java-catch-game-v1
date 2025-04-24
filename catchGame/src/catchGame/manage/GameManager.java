@@ -9,6 +9,7 @@ public class GameManager {
 	User user;
 
 	Scanner scanner = new Scanner(System.in);
+	String prevLocation;
 
 	// 객체 생성 시 user 객체 생성, 게임 상태 true로 설정
 	public GameManager() {
@@ -30,7 +31,7 @@ public class GameManager {
 		switch (inputChoice) {
 		case "1":
 			this.user.selectMap();
-
+			prevLocation = this.user.location;
 			// 맵 선택이 취소되었거나 집으로 이동한 경우 홈으로
 			if (this.user.location.equals("취소") || this.user.location.equals("집")) {
 				System.out.println("\n>> 맵 선택이 취소되었습니다. 홈으로 돌아갑니다.");
@@ -98,6 +99,7 @@ public class GameManager {
 				// 사용자가 "취소"를 선택했을 경우
 				if (this.user.location.equals("취소")) {
 					System.out.println("\n>> 맵 이동이 취소되었습니다. 현재 맵에서 계속 진행합니다.");
+					user.location = prevLocation;
 					user.catchMonster();
 					break;
 				}
