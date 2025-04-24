@@ -63,12 +63,16 @@ public class User {
 				switch (nowLocation) {
 					case "하늘":
 						monster = monsterArrays.skyMonsters();
+						break;
 					case "바다":
 						monster = monsterArrays.skyMonsters();
+						break;
 					case "땅":
 						monster = monsterArrays.skyMonsters();
+						break;
 					case "우주":
 						monster = monsterArrays.universeMonsters();
+						break;
 				}
 				this.checkMonster(monster); // 몬스터 조우 및 등장 문구 출력
 				this.catchFightMonster(monster, isCatch); // 몬스터 포획	
