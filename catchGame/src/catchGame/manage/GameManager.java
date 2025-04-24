@@ -87,6 +87,9 @@ public class GameManager {
 				break;
 			case "2":
 				user.selectMap();
+				if (this.user.location.equals("취소")) {
+					return;
+				}
 				System.out.println("\n--" + user.location + "맵에 소환되었습니다--");
 				user.catchMonster();
 				break;
