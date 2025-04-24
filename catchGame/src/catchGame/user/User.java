@@ -80,7 +80,7 @@ public class User {
 				break;
 			}
 			this.checkMonster(monster); // 몬스터 조우 및 등장 문구 출력
-			Thread.sleep(900);
+			Thread.sleep(500);
 			this.catchFightMonster(monster, isCatch); // 몬스터 포획
 		}
 	}
@@ -103,11 +103,11 @@ public class User {
 			if (userChoice.equalsIgnoreCase("Y")) {
 				// 몬스터가 기본이 아닐 경우 포획 로직
 				System.out.println("\n>> 싸우는 중");
-				Thread.sleep(900);
+				Thread.sleep(500);
 				System.out.println(">> ...");
-				Thread.sleep(900);
+				Thread.sleep(500);
 				System.out.println(">> ...\n");
-				Thread.sleep(900);
+				Thread.sleep(500);
 				this.fightMonster(monster, isCatch, catchMonsterName);
 			}
 			return;
