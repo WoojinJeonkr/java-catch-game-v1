@@ -16,11 +16,12 @@ public class GameManager {
 	}
 
 	// 게임 메뉴 출력 메소드
-	public void printGameMenu() {
+	public void printGameMenu() throws InterruptedException {
 		System.out.println("\n=== 몬스터 잡기 게임 ===");
 		System.out.println("1. 맵 선택하기");
 		System.out.println("2. 몬스터 도감 보기");
 		System.out.println("3. 내 정보 보기");
+		System.out.println("4. 게임 종료");
 		System.out.println("4. 게임 종료");
 		System.out.print("메뉴를 선택하세요 (1-4): ");
 		int inputChoice = scanner.nextInt();
@@ -29,10 +30,16 @@ public class GameManager {
 		case 1:
 			this.user.selectMap(); //
 			System.out.println();
+			Thread.sleep(1500);
 			System.out.println("--" + user.location + "맵에 소환되었습니다" + "--");
+			Thread.sleep(1500);
 			System.out.println("(..두리번...두리번..)");
-			System.out.println("\n>> 몬스터를 탐색 중입니다...");
-
+			Thread.sleep(1500);
+			System.out.println("\n>> 몬스터를 탐색 중입니다.");
+			Thread.sleep(1500);
+			System.out.println("\n>> ...");
+			Thread.sleep(1500);
+			System.out.println("\n>> ...");
 			user.catchMonster();
 			printUserAction();
 			break;
@@ -56,9 +63,9 @@ public class GameManager {
 		}
 	}
 
-	public void printUserAction() {
+	public void printUserAction() throws InterruptedException {
 		while (true) {
-			System.out.println("1. 계속 탐색하기 2. 다른 맵 이동 3. 도감 보기 4. 몬스터 검색 5. 홈으로 가기");
+			System.out.println("\n1. 계속 탐색하기 2. 다른 맵 이동 3. 도감 보기 4. 몬스터 검색 5. 홈으로 가기");
 			String ans = scanner.nextLine();
 			switch (ans) {
 			case "1":
@@ -85,7 +92,7 @@ public class GameManager {
 	}
 
 	// 게임 실행 메소드
-	public void runGame() {
+	public void runGame() throws InterruptedException {
 		while (this.isRunning) {
 			this.printGameMenu();
 		}

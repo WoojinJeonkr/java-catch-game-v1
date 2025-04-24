@@ -30,7 +30,7 @@ public class User {
 	}
 
 	// 몬스터 포획 메소드
-	public void catchMonster() {
+	public void catchMonster() throws InterruptedException {
 		// 몬스터 배열 객체 선언
 		MonsterArrays monsterArrays = new MonsterArrays();
 
@@ -45,21 +45,29 @@ public class User {
 			System.out.println("\n💥 몬스터를 만났다! 💥\n");
 			MonsterBase skyMonster = monsterArrays.skyMonsters();
 			skyMonster.appearanceComment();
+			Thread.sleep(1500);
+			System.out.println();
 			isCatch = skyMonster.catchMonster();
 			catchMonsterName = skyMonster.name;
 		} else if (this.location.equals(gameMap[1])) {
 			MonsterBase seaMonster = monsterArrays.seaMonsters();
 			seaMonster.appearanceComment();
+			Thread.sleep(1500);
+			System.out.println();
 			isCatch = seaMonster.catchMonster();
 			catchMonsterName = seaMonster.name;
 		} else if (this.location.equals(gameMap[2])) {
 			MonsterBase earthMonster = monsterArrays.earthMonsters();
 			earthMonster.appearanceComment();
+			Thread.sleep(1500);
+			System.out.println();
 			isCatch = earthMonster.catchMonster();
 			catchMonsterName = earthMonster.name;
 		} else if (this.location.equals(gameMap[3])) {
 			MonsterBase randomMonster = monsterArrays.universeMonsters();
 			randomMonster.appearanceComment();
+			Thread.sleep(1500);
+			System.out.println();
 			isCatch = randomMonster.catchMonster();
 			catchMonsterName = randomMonster.name;
 		}
@@ -85,7 +93,7 @@ public class User {
 	}
 
 	// 맵 선택
-	public void selectMap() {
+	public void selectMap() throws InterruptedException {
 		MapExploring newMap = new MapExploring();
 		newMap.mapInput(this.mapExploring.mapIterationCount);
 		this.mapExploring = newMap;

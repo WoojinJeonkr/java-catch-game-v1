@@ -11,7 +11,7 @@ public class MapExploring {
 	private int mapIndex = 2;
 	private int mapReturn;
 
-	public void mapInput(int mapCount) {
+	public void mapInput(int mapCount) throws InterruptedException {
 		this.mapIterationCount = mapCount;
 
 		while (this.mapIndex == 2) {
@@ -22,6 +22,7 @@ public class MapExploring {
 			this.answerMap = scanner.nextLine();
 			this.mapIndex = mapSelect(this.answerMap);
 			if (this.mapIndex == 0) {
+				Thread.sleep(1500);
 				System.out.println("\n>> 맵 이동중입니다...");
 				this.mapIterationCount++;
 				break;
@@ -33,7 +34,8 @@ public class MapExploring {
 		}
 	}
 
-	public int mapSelect(String answerMap) {
+	public int mapSelect(String answerMap) throws InterruptedException {
+		Thread.sleep(1500);
 		if (answerMap.equals("하늘")) {
 			System.out.println("하늘☁️ 맵 페이지로 이동합니다");
 			this.mapReturn = 0;

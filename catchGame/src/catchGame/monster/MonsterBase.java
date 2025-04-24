@@ -50,7 +50,7 @@ public class MonsterBase {
 	// 유저가 '싸운다' 라는 선택지를 선택 할 경우
 	// 확률적으로 몬스터 잡거나 못잡는 이벤트 발생
 	// 잡히면 도감 등록을 해야함
-	public boolean catchMonster() {
+	public boolean catchMonster() throws InterruptedException {
 		return true;
 	}
 }
