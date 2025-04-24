@@ -27,9 +27,9 @@ public class MapExploring {
 			this.answerMap = scanner.nextLine();
 			this.mapIndex = mapSelect(this.answerMap);
 			if (this.mapIndex == 0) {
-				Thread.sleep(1500);
+				Thread.sleep(900);
 				System.out.println("\n>> 맵 이동중입니다...");
-				Thread.sleep(1500);
+				Thread.sleep(900);
 				this.mapIterationCount++;
 				break;
 			}
@@ -58,6 +58,7 @@ public class MapExploring {
 			this.mapReturn = 0;
 		} else if (answerMap.equals("랜덤")) {
 			System.out.println("=========랜덤맵 생성 중...=========");
+			Thread.sleep(900);
 			String[] probabilityAnswer = mapProbability().split(" ");
 			mapProbabilityAnswer = probabilityAnswer[1];
 			System.out.println(probabilityAnswer[0] + " " + probabilityAnswer[1] + " 맵 페이지로 이동합니다");
