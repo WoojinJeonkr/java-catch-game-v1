@@ -60,7 +60,7 @@ public class MapExploring {
 			System.out.println("=========랜덤맵 생성 중...=========");
 			String[] probabilityAnswer = mapProbability().split(" ");
 			mapProbabilityAnswer = probabilityAnswer[1];
-			System.out.println(probabilityAnswer[0] + " " + probabilityAnswer[1] + " 맵 페이지가 선택되었습니다");
+			System.out.println(probabilityAnswer[0] + " " + probabilityAnswer[1] + " 맵 페이지로 이동합니다");
 			this.mapReturn = 0;
 		} else if (answerMap.equals("취소")) {
 			this.mapReturn = 1;
