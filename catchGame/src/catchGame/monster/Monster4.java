@@ -12,11 +12,11 @@ public class Monster4 extends MonsterBase {
 	// 등장멘트
 	@Override
 	public void appearanceComment() {
-		this.e = r.nextInt(3);
-		if (e == 0) {
+		this.probabilityValue = r.nextInt(3);
+		if (this.probabilityValue == 0) {
 			System.out.println("\"마자용이 느긋하게 바닥에 누워 있다… 싸우려는 건지, 낮잠 자러 나온 건지 알 수 없다.\"\n"
 					+ "➤ \"마~자~용... (좀 이따 시작하자...)\"\n" + "(기지개를 켜는 마자용, 전투보다 스트레칭이 우선!)");
-		} else if (e == 1) {
+		} else if (this.probabilityValue == 1) {
 			System.out.println("\"불길한 기운이 감돈다… 마자용이다! 잔잔한 음악을 틀어줘야 할 것 같은 분위기다.\"\n" + "➤ \"마...자...용~\"\n"
 					+ "(눈빛은 멍하지만, 뭔가 한 건 할 것 같은 포스가 흐른다!)");
 		} else {
@@ -30,13 +30,14 @@ public class Monster4 extends MonsterBase {
 	// 랜덤 값 1~9 나오면 도망, 그외 숫자 안 도망침
 	@Override
 	public boolean runMonster() {
+		this.probabilityValue = r.nextInt(3);
+
 		// 도망칠 때
 		if (this.r.nextInt(100) + 1 <= 9) {
-			this.e = r.nextInt(3);
-			if (e == 0) {
+			if (this.probabilityValue == 0) {
 				System.out.println("\"9% 확률로 마자용이 도망쳤다! 엎드려 있다가 갑자기 연기를 뿜으며 사라졌다!\"\n"
 						+ "➤ \"마자~용~ (여긴 나랑 안 맞는 분위기야~)\"\n" + "(도망도 예술처럼 하는 마자용, 멍한 표정은 그대로.)");
-			} else if (e == 1) {
+			} else if (this.probabilityValue == 1) {
 				System.out.println("\"9% 확률로 마자용이 조용히 뒤로 기어가더니 사라졌다! 보고도 못 믿을 마성의 퇴장!\"\n"
 						+ "➤ \"마...자...용~ (언제 싸우냐 했는데, 아 나 간다~)\"\n" + "(전투를 시작하지 않고 이탈하는 클래식 마자용 스타일.)");
 			} else {
@@ -46,11 +47,10 @@ public class Monster4 extends MonsterBase {
 			return false;
 		}
 		// 안 도망칠 때
-		this.e = r.nextInt(3);
-		if (e == 0) {
+		if (this.probabilityValue == 0) {
 			System.out.println("\"91% 확률로 마자용은 도망가지 않았다! 그냥 바닥에 누워 ‘가라고 해도 안 간다’는 포즈.\"\n"
 					+ "➤ \"마자~용~ (어차피 어디 가긴 귀찮아~)\"\n" + "(전투보다 눕는 게 우선인 마자용.)");
-		} else if (e == 1) {
+		} else if (this.probabilityValue == 1) {
 			System.out.println("\"91% 확률로 마자용이 눈을 감았다... 하지만 도망치진 않았다! 자는 건지 버티는 건지 알 수 없다.\"\n"
 					+ "➤ \"마...자... (지금 나 건들면 큰일 날걸?)\"\n" + "(이름값대로 맞는 걸 좋아하는거 같다, 살짝 소름이 돋는다)");
 		} else {
@@ -73,7 +73,7 @@ public class Monster4 extends MonsterBase {
 			return true;
 		}
 		// 안 잡혔을 때
-		System.err.println("50% 확률로 놓치고 말았다\n" + "➤" + this.name + "의 모습이 보이지 않는다.\n" + "(오히려 다행인거 같다..)");
+		System.out.println("50% 확률로 놓치고 말았다\n" + "➤" + this.name + "의 모습이 보이지 않는다.\n" + "(오히려 다행인거 같다..)");
 		return false;
 	}
 

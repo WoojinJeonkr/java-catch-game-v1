@@ -13,7 +13,7 @@ public class Monster5 extends MonsterBase {
 	// 등장멘트
 	@Override
 	public void appearanceComment() {
-		this.e = r.nextInt(3);
+		this.probabilityValue = r.nextInt(3);
 		if(e == 0) {
 			System.out.println("\"바다 그 자체이자 바다의 행운 가이오가 등장! 봤으니 기도하자!\"\n" +
 					"➤ ....." +
@@ -35,14 +35,16 @@ public class Monster5 extends MonsterBase {
 	// 랜덤 값 1~89 나오면 도망, 그외 숫자 안 도망침
 	@Override
 	public boolean runMonster() {
+		this.probabilityValue = r.nextInt(3);
+
+
 		// 도망칠 때
 		if(this.r.nextInt(100) + 1 <= 89) {
-			this.e = r.nextInt(3);
-			if (e == 0) {
+			if (this.probabilityValue == 0) {
 				System.out.println("\"89% 확률로 가이오가가 도망쳤다! 갑자기 물보라를 일으키며 바다로 풍덩!\"\n" +
 						"➤ \"가오가오~ (비 오니까 더 젖기 전에 튄다!)\"\n" +
 						"(그 자리에 남은 건 물웅덩이와 트레이너의 젖은 양말.)");
-			} else if (e == 1) {
+			} else if (this.probabilityValue == 1) {
 				System.out.println("\"89% 확률로 가이오가가 조용히 바다로 빠져나갔다… 고요 속의 퇴장.\"\n" +
 						"➤ \"가아…오… (여긴 내 무대가 아닌 듯)\"\n" +
 						"(배경 음악이 사라지고, 어색한 정적만 남았다.)");
@@ -53,12 +55,11 @@ public class Monster5 extends MonsterBase {
 			}
 		}
 		// 안 도망칠 때
-		this.e = r.nextInt(3);
-		if (e == 0) {
+		if (this.probabilityValue == 0) {
 			System.out.println("\"11% 확률로 가이오가는 도망가지 않았다! 대신 구름이 더 몰려오고, 비가 쏟아지기 시작했다!\"\n" +
 					"➤ \"가오가오오~ (이제 시작이다, 우산 챙겼니?)\"\n" +
 					"(우비 안 챙긴 트레이너는 공포에 떨고 있다!)");
-		} else if (e == 1) {
+		} else if (this.probabilityValue == 1) {
 			System.out.println("\"11% 확률로 가이오가가 그 자리에 버티고 있다… 도망? 비 오는 날 집 나간 적 없다!\"\n" +
 					"➤ \"가아오~ (물은 내 친구야. 여기서 싸워야지!)\"\n" +
 					"(물 위에 떠 있으면서도 존재감은 대륙급!)");
@@ -84,7 +85,7 @@ public class Monster5 extends MonsterBase {
 			this.ifCatch = true;
 			return true;
 		}
-		System.err.println("\"91% 확률로 가이오가는 잡히지 않았다! 포켓볼이 던져진 순간, 바닷물로 위장하고 사라졌다!\"\n" +
+		System.out.println("\"91% 확률로 가이오가는 잡히지 않았다! 포켓볼이 던져진 순간, 바닷물로 위장하고 사라졌다!\"\n" +
 				"➤ \"가오가오~ (전설은 쉽게 포켓볼에 담기지 않아!)\"\n" +
 				"(목숨 부지한걸로 만족하자)");
 		return false;

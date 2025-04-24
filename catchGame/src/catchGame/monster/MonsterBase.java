@@ -11,7 +11,7 @@ import java.util.Random;
 public class MonsterBase {
 	public Random r = new Random();
 
-	int e;
+	public int probabilityValue;
 
 	// 몬스터 이름
 	public String name;

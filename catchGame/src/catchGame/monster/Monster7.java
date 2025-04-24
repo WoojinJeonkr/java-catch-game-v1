@@ -13,12 +13,13 @@ public class Monster7 extends MonsterBase {
 	// 등장멘트
 	@Override
 	public void appearanceComment() {
-		this.e = r.nextInt(3);
-		if(e == 0) {
+		this.probabilityValue = r.nextInt(3);
+		if(this.probabilityValue == 0) {
 			System.out.println("\"머릿속에 직접 들려오는 목소리… 눈앞에 뮤츠가 나타났다!\"\n" +
 					"➤ \"…이게 너의 최선인가?\"\n" +
 					"(상대가 포켓볼 꺼내기도 전에 멘탈 공격 완료됨.)");
-		} else if (e == 1) {
+		}
+		else if (this.probabilityValue == 1) {
 			System.out.println("\"하늘이 찢기듯 갈라지며 뮤츠 등장! 마치 시간을 조종한 듯한 연출!\"\n" +
 					"➤ \"나는 왜 여기에 있는가... 그리고 넌 왜 긴장을 푸는가?\"\n" +
 					"(뮤츠는 철학 질문을 던지며 전투 시작 전부터 혼란을 유도한다.)");
@@ -35,14 +36,17 @@ public class Monster7 extends MonsterBase {
 	// 랜덤 값 1~3 나오면 도망, 그외 숫자 안 도망침
 	@Override
 	public boolean runMonster() {
+		this.probabilityValue = r.nextInt(3);
+
+
 		// 도망칠 때
 		if(this.r.nextInt(20) + 1 <= 3) {
-			this.e = r.nextInt(3);
-			if(e == 0) {
+			if(this.probabilityValue == 0) {
 				System.out.println("\"15% 확률로 뮤츠가 갑자기 눈을 감더니 사라졌다!\"\n" +
 						"➤ \"...넌 아직 나를 상대할 준비가 안 됐다.\"\n" +
 						"(그 말과 동시에 자취를 감췄다. 카페 간 걸 수도 있음.)");
-			} else if (e == 1) {
+			}
+			else if (this.probabilityValue == 1) {
 				System.out.println("\"15% 확률로 뮤츠가 순간이동했다! 남은 건 싸늘한 공기와 자괴감뿐!\"\n" +
 						"➤ \"이 시간은… 무의미하다.\"\n" +
 						"(딱 봐도 중2병인데 말은 멋지게 한다.)");
@@ -54,12 +58,12 @@ public class Monster7 extends MonsterBase {
 			return false;
 		}
 		// 안 도망칠 때
-		this.e = r.nextInt(3);
-		if(e == 0) {
+		if(this.probabilityValue == 0) {
 			System.out.println("\"85% 확률로 뮤츠가 당신을 똑바로 응시하고 있다. 절대 도망칠 생각은 없는 듯하다.\"\n" +
 					"➤ \"네 생각은… 읽었다. 그래도 상대해주지.\"\n" +
 					"(무서운 건데 이상하게 약간 설렌다?)");
-		} else if (e == 1) {
+		}
+		else if (this.probabilityValue == 1) {
 			System.out.println("\"85% 확률로 뮤츠는 미동도 하지 않는다. 그 자리에 서 있는 것만으로 포스가 넘친다.\"\n" +
 					"➤ \"여기서 물러나는 건… 내 존재를 부정하는 것이다.\"\n" +
 					"(자기 정체성까지 걸고 안 도망침. 역시 전설.)");
@@ -85,7 +89,7 @@ public class Monster7 extends MonsterBase {
 			this.ifCatch = true;
 			return true;
 		}
-		System.err.println("\"75% 확률로 뮤츠가 볼 안에서 순간이동으로 빠져나왔다! 전설은 갇히지 않는다.\"\n" +
+		System.out.println("\"75% 확률로 뮤츠가 볼 안에서 순간이동으로 빠져나왔다! 전설은 갇히지 않는다.\"\n" +
 				"➤ \"넌 나를 가둘 수 없다. 포켓볼도 그렇고, 기대도 마찬가지야.\"\n" +
 				"(명대사 제조기 뮤츠, 탈출하면서도 멘트는 기가 막히다.)");
 		return false;
