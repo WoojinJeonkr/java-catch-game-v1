@@ -19,7 +19,7 @@ public class Monster0 extends MonsterBase {
 		if (this.probabilityValue == 0) {
 			System.out.println("주변엔 아무것도 없는 거 같다..");
 		} else if (this.probabilityValue == 1) {
-			System.out.println("염병, 허탕이다..");
+			System.out.println("아이고, 허탕이다..");
 		} else {
 			System.out.println("전설의 아르세우스!는 커녕 아무것도 나오지 않았다..");
 		}

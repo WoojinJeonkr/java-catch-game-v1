@@ -89,8 +89,7 @@ public class Monster1 extends MonsterBase {
 		}
 		// 못잡을 때 false
 		System.out.println("=========포켓몬 포획 실패!=========");
-		System.out.println("\"" + this.name + "의 모습이 보이지 않는다.\"\n + " + "➤ 아뿔싸! 0.1% 확률로 놓치고 말았다.\n"
-				+ "(이것도 못잡는 거 보니 해당 유저는 사람새x끼가 아닌거 같다.)");
+		System.out.println("\"" + this.name + "의 모습이 보이지 않는다.\"\n + " + "➤ 아뿔싸! 0.1% 확률로 놓치고 말았다.\n" + "(이것도 못잡다니...)");
 		System.out.println();
 		return false;
 	}

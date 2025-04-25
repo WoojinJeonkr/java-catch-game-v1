@@ -15,7 +15,7 @@ public class Monster5 extends MonsterBase {
 		System.out.println("=========포켓몬 조우=========");
 		this.probabilityValue = r.nextInt(3);
 		if (this.probabilityValue == 0) {
-			System.out.println("\"바다 그 자체이자 바다의 행운 가이오가 등장! 봤으니 기도하자!\"\n" + "➤ ....." + "(내가 뒤지질 않기를)");
+			System.out.println("\"바다 그 자체이자 바다의 행운 가이오가 등장! 봤으니 기도하자!\"\n" + "➤ ....." + "(내가 꼭 살아있기를)");
 		} else if (this.probabilityValue == 1) {
 			System.out.println("\"하늘이 어두워지더니, 빗방울과 함께… 가이오가 떠올랐다!\"\n" + "➤ \"가아아~오가… (우비 안 챙겼냐?)\"\n"
 					+ "(등장과 동시에 비가 오는 기적! 지역 기상청도 패닉!)");
