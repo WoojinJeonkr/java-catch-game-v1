@@ -1,89 +1,89 @@
 package catchGame.map;
 
-import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * 맵 탐색 클래스
+ */
 public class MapExploring {
-	public String[] map = { "하늘", "바다", "땅", "랜덤", "취소" };
-	Scanner scanner = new Scanner(System.in);
-	public String answerMap; // 고른 맵에 대한 대답 변수
-	public int mapIterationCount; // 맵 선택하기 반복 횟수
-	public String mapProbabilityAnswer; // 랜덤일 때 정해진 맵 이름에 대한 변수
-	private int mapIndex = 2; // 맵 선택의 예외처리에서 기준이 되는 값
-	public int mapReturn; // mapSelect 함수의 return 값으로 어떤 맵으로 이동했는지 확인만 가능
+	private final Scanner scanner = new Scanner(System.in);
+    private MapType selectedMap; // 사용자가 선택한 맵
+    private MapType finalMap; // 랜덤 선택 후 최종 결정된 맵
+    private int selectionCount; // 맵 선택 횟수
+    
+    // 맵 선택 메서드
+    public void selectMap(int previousCount) throws InterruptedException {
+        this.selectionCount = previousCount;
+        while (true) {
+            if (this.selectionCount < 1) {
+                System.out.println("\n+++ 몬스터 잡기 게임 +++");
+            }
+            
+            System.out.println("🗺️ 맵을 선택하세요 (☁️ 하늘|🌊 바다|🌴 땅|🎲 랜덤|⚠️ 취소)");
+            String userInput = scanner.nextLine().trim();
+            MapType inputType = MapType.fromKorean(userInput);
 
-	// 하늘, 바다, 땅, 랜덤,취소 중에서 원하는 맵 선택하기 위한 함수
-	// 맵 선택후 mapSelect 함수 호출, return 값으로 0,1,2를 반환
-	// 0일 때는 랜덤과 취소를 제외한 값
-	// 1일 때는 취소 눌렀을 때
-	// 2일 때 잘못 눌렀을 때
-	public void mapInput(int mapCount) throws InterruptedException {
-		this.mapIterationCount = mapCount;
-		while (this.mapIndex == 2) {
-			if (this.mapIterationCount < 1) {
-				System.out.println("\n+++ 몬스터 잡기 게임 +++");
-			}
-			System.out.println("🗺️ 맵을 선택하세요 (☁️ 하늘|🌊 바다|🌴 땅|🎲 랜덤|⚠️ 취소)");
-			this.answerMap = scanner.nextLine();
-			this.mapIndex = mapSelect(this.answerMap);
-			if (this.mapIndex == 0) {
-				Thread.sleep(500);
-				System.out.println("\n>> 맵 이동중입니다...");
-				Thread.sleep(500);
-				this.mapIterationCount++;
-				break;
-			}
-			if (this.mapIndex == 1) {
-				mapProbabilityAnswer = "취소";
-				break;
-			}
+            if (inputType == null) {
+                System.out.println("잘못 입력하셨습니다");
+                continue;
+            }
 
-		}
-	}
+            switch (inputType) {
+                case SKY:
+                case SEA:
+                case LAND:
+                    handleBasicMap(inputType);
+                    return;
+                case RANDOM:
+                    handleRandomMap();
+                    return;
+                case CANCEL:
+                    handleCancel();
+                    return;
+                default:
+                    System.out.println("잘못 입력하셨습니다");
+            }
+        }
+    }
+    
+    // 맵 선택 처리
+    private void handleBasicMap(MapType type) throws InterruptedException {
+        this.selectedMap = type;
+        this.finalMap = type;
+        System.out.println(type.getDisplayName() + "맵 페이지로 이동합니다");
+        proceedToMap();
+    }
+    
+    private void handleRandomMap() throws InterruptedException {
+        System.out.println("=========랜덤맵 생성 중...=========");
+        Thread.sleep(500);
+        this.selectedMap = MapType.RANDOM;
+        this.finalMap = MapType.getRandomActualMap();
+        System.out.println(finalMap.getDisplayName() + " 맵 페이지로 이동합니다");
+        proceedToMap();
+    }
+    
+    private void handleCancel() {
+        this.selectedMap = MapType.CANCEL;
+        this.finalMap = MapType.CANCEL;
+    }
+    
+    private void proceedToMap() throws InterruptedException {
+        Thread.sleep(500);
+        System.out.println("\n>> 맵 이동중입니다...");
+        Thread.sleep(500);
+        this.selectionCount++;
+    }
+    
+    public MapType getSelectedMap() {
+        return selectedMap;
+    }
 
-	// mapInput에서 대답한 것과 비교하여 조건에 맞는 이동 위치 설정
-	// 랜덤일 때는 mapProbability를 호출하여 다시 맵을 고르고 mapProbabilityAnswer에 랜덤으로 정한 맵 이름 반환
-	public int mapSelect(String answerMap) throws InterruptedException {
-		if (answerMap.equals("하늘")) {
-			System.out.println("☁️ 하늘맵 페이지로 이동합니다");
-			this.mapProbabilityAnswer = this.answerMap;
-			this.mapReturn = 0;
-		} else if (answerMap.equals("바다")) {
-			System.out.println("🌊 바다맵 페이지로 이동합니다");
-			this.mapProbabilityAnswer = this.answerMap;
-			this.mapReturn = 0;
-		} else if (answerMap.equals("땅")) {
-			System.out.println("🌴 땅맵 페이지로 이동합니다");
-			this.mapProbabilityAnswer = this.answerMap;
-			this.mapReturn = 0;
-		} else if (answerMap.equals("랜덤")) {
-			System.out.println("=========랜덤맵 생성 중...=========");
-			Thread.sleep(500);
-			String[] probabilityAnswer = mapProbability().split(" ");
-			mapProbabilityAnswer = probabilityAnswer[1];
-			System.out.println(probabilityAnswer[0] + " " + probabilityAnswer[1] + " 맵 페이지로 이동합니다");
-			this.mapReturn = 0;
-		} else if (answerMap.equals("취소")) {
-			this.mapReturn = 1;
-		} else {
-			System.out.println("잘못 입력하셨습니다");
-			this.mapReturn = 2;
-		}
-		return this.mapReturn;
-	}
+    public MapType getFinalMap() {
+        return finalMap;
+    }
 
-	// 랸덤 맵 선택했을 때 우주 맵이 나올 확률 20%로 확률 조작
-	public String mapProbability() {
-		Random random = new Random();
-		int index = random.nextInt(15);
-		if (index < 4) {
-			return "☁️ 하늘";
-		} else if (index < 8) {
-			return "🌊 바다";
-		} else if (index < 12) {
-			return "🌴 땅";
-		} else {
-			return "🚀 우주";
-		}
-	}
+    public int getSelectionCount() {
+        return selectionCount;
+    }
 }
