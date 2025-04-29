@@ -11,7 +11,7 @@ import catchGame.monster.MonsterBase;
 public class User {
 	public String userName; // 사용자 이름
 	public String location; // 사용자 위치
-	public PokeDexClass pokeDex; // 사용자 도감
+	public PokeDex pokeDex; // 사용자 도감
 	public MapExploring mapExploring; // 맵 정보
 	private MonsterBase[] myPoket; // 잡은 몬스터 배열
 	private int myPoketCnt; // 잡은 몬스터 수
@@ -35,7 +35,7 @@ public class User {
 		    this.userName = "트레이너";
 		}
 		
-		this.pokeDex = new PokeDexClass();
+		this.pokeDex = new PokeDex();
 		this.pokeDex.insertPokeDex();
 		this.mapExploring = new MapExploring();
 		this.location = "집";
