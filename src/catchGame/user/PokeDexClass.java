@@ -37,20 +37,6 @@ public class PokeDexClass {
 		this.pokeDex[10] = new Monster10();
 	}
 
-	public void choicePokeDex() {
-		// 안쓰는 함수 (사용은 가능)
-		System.out.println("1,2번 중에 선택하세요");
-		System.out.println("1. 도감 전체보기");
-		System.out.println("2. 도감 검색하기");
-		Scanner scanner = new Scanner(System.in);
-		int userInput = Integer.parseInt(scanner.nextLine());
-		if (userInput == 1) {
-			this.printPokeDex();
-		} else {
-			this.searchPokeDex();
-		}
-	}
-
 	// 포켓몬 도감 출력 잡은것만 세부사항출력 못잡은건 ???로 출력
 	public void printPokeDex() {
 		System.out.println("포켓몬 도감을 출력합니다.\n");
@@ -69,7 +55,7 @@ public class PokeDexClass {
 		}
 	}
 
-//	포켓몬 잡은 몬스터 잡았다고 최신화
+	//	포켓몬 잡은 몬스터 잡았다고 최신화
 	public void updatePokeDex(String name) {
 		for (int i = 1; i < this.pokeDex.length; i++) {
 			if (this.pokeDex[i].name.equals(name)) {
@@ -79,7 +65,7 @@ public class PokeDexClass {
 
 	}
 
-//	검색하기 포켓몬 도감번호와 이름을 먼저 출력하고 , 검색하고 싶은 도감번호 입력받아서 그 도감번호 출력
+	//	검색하기 포켓몬 도감번호와 이름을 먼저 출력하고 , 검색하고 싶은 도감번호 입력받아서 그 도감번호 출력
 	public void searchPokeDex() {
 		System.out.println("---------------------------------\n");
 		System.out.println("포켓몬 도감 검색하기");
@@ -125,8 +111,8 @@ public class PokeDexClass {
 
 	}
 	
-//  도감번호 RPad 매서드
-//	도감번호 항상 4자리 유지
+	//  도감번호 RPad 매서드
+	//	도감번호 항상 4자리 유지
 	private void RPad(int i) {
 		String RPad = ""; 
 		for (int j = 0; j < 4; j++) {
