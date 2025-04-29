@@ -10,20 +10,20 @@ public enum MapType {
     RANDOM("랜덤", "🎲", true),
     CANCEL("취소", "⚠️", true);
 
-    private final String koreanName;
+    private final String areaName;
     private final String symbol;
     private final boolean isSpecial;
     private static final Random random = new Random();
 
     MapType(String koreanName, String symbol, boolean isSpecial) {
-        this.koreanName = koreanName;
+        this.areaName = koreanName;
         this.symbol = symbol;
         this.isSpecial = isSpecial;
     }
 
     public static MapType fromKorean(String input) {
         for (MapType type : values()) {
-            if (type.koreanName.equals(input)) {
+            if (type.areaName.equals(input)) {
                 return type;
             }
         }
@@ -39,6 +39,10 @@ public enum MapType {
     }
 
     public String getDisplayName() {
-        return symbol + " " + koreanName;
+        return symbol + " " + areaName;
+    }
+    
+    public String getAreaName() {
+        return areaName;
     }
 }
