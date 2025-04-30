@@ -12,6 +12,8 @@ import catchGame.monster.MonsterType;
 public class PokeDex {
 
 	private MonsterBase[] pokeDex; // MonsterBase 객체 데이터 배열 생성
+	
+	private Scanner scanner = new Scanner(System.in);
 
 	public PokeDex() {
 		this.pokeDex = new MonsterBase[MonsterType.values().length];
@@ -59,7 +61,6 @@ public class PokeDex {
 
     // 포켓몬 도감 검색
     public void searchPokeDex() {
-        Scanner scanner = new Scanner(System.in);
         
         System.out.println("---------------------------------\n");
         System.out.println("포켓몬 도감 검색하기");

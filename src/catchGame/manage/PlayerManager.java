@@ -1,20 +1,16 @@
 package catchGame.manage;
 
-import java.util.Scanner;
-
 import catchGame.user.User;
 
 public class PlayerManager {
 	private User[] players; // 등록된 플레이어 배열
     private int playerCount; // 등록된 플레이어 수
     private User currentPlayer; // 현재 로그인한 플레이어
-    private Scanner scanner;
     
     public PlayerManager(int maxPlayers) {
         this.players = new User[maxPlayers];
         this.playerCount = 0;
         this.currentPlayer = null;
-        this.scanner = new Scanner(System.in);
     }
     
     // 플레이어 등록 메서드
@@ -85,5 +81,4 @@ public class PlayerManager {
     public boolean isLoggedIn() {
         return currentPlayer != null;
     }
-}
 }

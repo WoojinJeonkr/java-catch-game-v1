@@ -35,16 +35,17 @@ public class RankingSystem {
         }
         
         // 버블 정렬로 몬스터 평균 레벨 내림차순 정렬
-        for (int i = 0; i < playerCount - 1; i++) {
-            for (int j = 0; j < playerCount - i - 1; j++) {
-                if (rankedPlayers[j].calculateAverageMonsterLevel() < 
-                    rankedPlayers[j + 1].calculateAverageMonsterLevel()) {
-                    // 플레이어 교환
-                    User temp = rankedPlayers[j];
-                    rankedPlayers[j] = rankedPlayers[j + 1];
-                    rankedPlayers[j + 1] = temp;
-                }
+        for (int i = 1; i < playerCount; i++) {
+            User key = rankedPlayers[i];
+            double keyAvgLevel = key.calculateAverageMonsterLevel();
+            int j = i - 1;
+
+            // key보다 평균 레벨이 낮은 요소를 오른쪽으로 이동
+            while (j >= 0 && rankedPlayers[j].calculateAverageMonsterLevel() < keyAvgLevel) {
+                rankedPlayers[j + 1] = rankedPlayers[j];
+                j--;
             }
+            rankedPlayers[j + 1] = key;
         }
         
         return rankedPlayers;
@@ -59,9 +60,10 @@ public class RankingSystem {
                 System.out.println((i + 1) + "위: " + rankedPlayers[i].getPlayerId() + 
                                   " (레벨: " + rankedPlayers[i].getLevel() + ")");
             } else if (rankingType.equals("몬스터 평균 레벨")) {
-                System.out.printf("%d위: %s (몬스터 평균 레벨: %.2f)\n", 
-                                 (i + 1), rankedPlayers[i].getPlayerId(), 
-                                 rankedPlayers[i].calculateAverageMonsterLevel());
+            	System.out.println((i + 1) + "위: " + rankedPlayers[i].getPlayerId() +
+            	        " (몬스터 평균 레벨: " + String.format("%.2f", rankedPlayers[i].calculateAverageMonsterLevel()) 
+            			+ ")\n"
+            	 );
             }
         }
     }

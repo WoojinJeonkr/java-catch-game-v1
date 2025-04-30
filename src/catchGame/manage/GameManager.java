@@ -141,8 +141,7 @@ public class GameManager {
         System.out.println("3. 몬스터 검색하기");
         System.out.println("4. 내 정보 확인");
         System.out.println("5. 로그아웃");
-        System.out.println("6. 게임 종료");
-        System.out.print("메뉴를 선택하세요 (1-6): ");
+        System.out.print("메뉴를 선택하세요 (1-5): ");
         
         String choice = scanner.nextLine().replace(" ", "");
         
@@ -164,10 +163,6 @@ public class GameManager {
             case "5":
                 System.out.println("\n>> 로그아웃합니다.");
                 playerManager.logoutPlayer();
-                break;
-            case "6":
-                System.out.println("\n>> 게임을 종료합니다. 감사합니다!");
-                this.isRunning = false;
                 break;
             default:
                 System.out.println("잘못된 입력입니다. 1 ~ 6 사이의 숫자를 입력하세요.");
