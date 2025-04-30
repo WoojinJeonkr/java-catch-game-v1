@@ -65,6 +65,7 @@ public class GameSaveManager {
                     for (int i = choice - 1; i < saveCount - 1; i++) {
                         savedFiles[i] = savedFiles[i + 1];
                     }
+                    
                     savedFiles[saveCount - 1] = null;
                     saveCount--;
                 } else {
@@ -77,8 +78,8 @@ public class GameSaveManager {
             }
         }
         
-        // 파일명 생성 (날짜-시간-사용자이름.txt)
-        String fileName = getCurrentDateTime() + "-" + user.getUserName() + ".txt";
+        // 파일명에 플레이어 ID 포함
+        String fileName = getCurrentDateTime() + "-" + user.getPlayerId() + "-" + user.getUserName() + ".txt";
         
         // saves 디렉토리 확인 및 생성
         File directory = new File("saves");
@@ -88,7 +89,12 @@ public class GameSaveManager {
         
         // 파일 저장
         try (PrintWriter writer = new PrintWriter("saves/" + fileName)) {
-            // 사용자 기본 정보 저장
+            // 플레이어 ID 저장
+            writer.println("PLAYER_ID=" + user.getPlayerId());
+            // 플레이어 레벨 저장
+            writer.println("PLAYER_LEVEL=" + user.getLevel());
+            
+            // 기존 정보 저장
             writer.println("USER_NAME=" + user.getUserName());
             writer.println("LOCATION=" + user.getLocation());
             writer.println("CAUGHT_COUNT=" + user.getCaughtMonsterCount());
@@ -102,11 +108,9 @@ public class GameSaveManager {
             }
             
             System.out.println("✅ 성공적으로 저장되었습니다 ("+fileName+")");
-            
             // 저장된 파일 목록 업데이트
             savedFiles[saveCount] = fileName;
             saveCount++;
-            
         } catch (FileNotFoundException e) {
             System.out.println("저장 실패: " + e.getMessage());
         }
@@ -156,11 +160,6 @@ public class GameSaveManager {
     
     // 선택한 파일 로드
     private boolean loadGameFile(User user, String fileName) {
-    	if (saveCount == 0) {
-            System.out.println("[안내] 저장된 게임 파일이 없습니다");
-            return false;
-        }
-    	
         File file = new File("saves/" + fileName);
         if (!file.exists()) {
             System.out.println("파일을 찾을 수 없습니다: " + fileName);
@@ -174,12 +173,17 @@ public class GameSaveManager {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] parts = line.split("=", 2);
-                
                 if (parts.length == 2) {
                     String key = parts[0];
                     String value = parts[1];
                     
                     switch (key) {
+                        case "PLAYER_ID":
+                            user.setPlayerId(value);
+                            break;
+                        case "PLAYER_LEVEL":
+                            user.setLevel(Integer.parseInt(value));
+                            break;
                         case "USER_NAME":
                             user.setUserName(value);
                             break;

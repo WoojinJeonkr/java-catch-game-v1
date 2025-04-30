@@ -20,10 +20,14 @@ public class User {
     private int caughtMonsterCount;         // 잡은 몬스터 수
     private LocalDateTime startTime;        // 게임 시작 시간
     private Scanner scanner;                // 사용자 입력 스캐너
+    
+    private String playerId; // 플레이어 ID
+    private int level = 1; // 플레이어 레벨
 
 	// User 객체 생성 시 이름 입력받고, 새로운 도감 불러옴
     public User() {
         scanner = new Scanner(System.in);
+        this.playerId = "";
         initializeUser();
     }
     
@@ -50,6 +54,44 @@ public class User {
 
     public int getCaughtMonsterCount() {
         return this.caughtMonsters.length;
+    }
+    
+    public String getPlayerId() {
+        return this.playerId;
+    }
+    
+    public void setPlayerId(String playerId) {
+        this.playerId = playerId;
+    }
+    
+    public int getLevel() {
+        return level;
+    }
+    
+    public void setLevel(int level) {
+        if (level > 0) {
+            this.level = level;
+        }
+    }
+    
+    // 레벨 증가 메서드
+    public void increaseLevel() {
+        this.level++;
+    }
+    
+    // 소지 몬스터 평균 레벨 계산
+    public double calculateAverageMonsterLevel() {
+        double totalLevel = 0.0;
+        int count = 0;
+        
+        for (int i = 0; i < caughtMonsterCount; i++) {
+            if (caughtMonsters[i] != null) {
+                totalLevel += caughtMonsters[i].getLevel();
+                count++;
+            }
+        }
+        
+        return count > 0 ? totalLevel / count : 0.0;
     }
     
     // 사용자 초기화
@@ -161,21 +203,22 @@ public class User {
         for (int i = 0; i < caughtMonsterCount; i++) {
         	System.out.println((i + 1) + ". " + caughtMonsters[i].getName() 
         			+ " (Lv." + caughtMonsters[i].getLevel() + ")");
-        System.out.println("7. 취소하고 새 몬스터 놓아주기");
+        	System.out.println("7. 취소하고 새 몬스터 놓아주기");
 
-        try {
-            int slotChoice = Integer.parseInt(scanner.nextLine());
-            if (slotChoice >= 1 && slotChoice <= 6) {
-                replaceMonster(slotChoice, newMonster);
-            } else if (slotChoice == 7) {
-                releaseNewMonster(newMonster);
-            } else {
-                System.out.println("잘못된 선택입니다. 새 몬스터를 놓아줍니다.");
-                releaseNewMonster(newMonster);
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("숫자를 입력해주세요. 새 몬스터를 놓아줍니다.");
-            releaseNewMonster(newMonster);
+	        try {
+	            int slotChoice = Integer.parseInt(scanner.nextLine());
+	            if (slotChoice >= 1 && slotChoice <= 6) {
+	                replaceMonster(slotChoice, newMonster);
+	            } else if (slotChoice == 7) {
+	                releaseNewMonster(newMonster);
+	            } else {
+	                System.out.println("잘못된 선택입니다. 새 몬스터를 놓아줍니다.");
+	                releaseNewMonster(newMonster);
+	            }
+	        } catch (NumberFormatException e) {
+	            System.out.println("숫자를 입력해주세요. 새 몬스터를 놓아줍니다.");
+	            releaseNewMonster(newMonster);
+	        }
         }
     }
     
@@ -251,6 +294,12 @@ public class User {
         System.out.println("사용자 위치: " + (this.location.equals("취소") ? "집" : this.location));
         System.out.println("플레이 시간: " + getFormattedPlayTime());
         System.out.println("잡은 몬스터 수: " + caughtMonsterCount + "마리");
+        
+        if (caughtMonsterCount > 0) {
+            double avgLevel = calculateAverageMonsterLevel();
+            System.out.printf("몬스터 평균 레벨: %.2f\n", avgLevel);
+        }
+        
         System.out.println("현재 잡은 몬스터:");
         
         for (int i = 0; i < this.caughtMonsterCount; i++) {

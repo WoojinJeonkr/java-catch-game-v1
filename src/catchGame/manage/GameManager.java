@@ -2,6 +2,7 @@ package catchGame.manage;
 
 import java.util.Scanner;
 
+import catchGame.user.RankingSystem;
 import catchGame.user.User;
 
 public class GameManager {
@@ -10,6 +11,8 @@ public class GameManager {
     private Scanner scanner;    // 사용자 입력 스캐너
     private String previousLocation;  // 이전 위치
     private GameSaveManager saveManager;
+    private PlayerManager playerManager;
+    private RankingSystem rankingSystem;
 
 	// 객체 생성 시 user 객체 생성, 게임 상태 true로 설정
     public GameManager() {
@@ -17,24 +20,129 @@ public class GameManager {
         this.isRunning = true;
         this.scanner = new Scanner(System.in);
         this.saveManager = new GameSaveManager();
+        this.playerManager = new PlayerManager(3);
+        this.rankingSystem = new RankingSystem();
     }
     
     // 게임 실행 메서드
     public void runGame() throws InterruptedException {
-        while (this.isRunning) {
-            displayMainMenu();
+    	while (this.isRunning) {
+            if (playerManager.isLoggedIn()) {
+                displayMainMenu();
+            } else {
+                displayLoginMenu();
+            }
+        }
+    }
+    
+ // 로그인 메뉴 표시 및 처리
+    private void displayLoginMenu() {
+        System.out.println("\n=== 몬스터 잡기 게임 - 로그인 ===");
+        System.out.println("1. 로그인");
+        System.out.println("2. 계정 등록");
+        System.out.println("3. 랭킹 보기");
+        System.out.println("4. 게임 종료");
+        System.out.print("메뉴를 선택하세요 (1-4): ");
+        
+        String choice = scanner.nextLine().replace(" ", "");
+        
+        switch (choice) {
+            case "1":
+                handleLogin();
+                break;
+            case "2":
+                handleRegistration();
+                break;
+            case "3":
+                handleRankingView();
+                break;
+            case "4":
+                System.out.println("\n>> 게임을 종료합니다. 감사합니다!");
+                this.isRunning = false;
+                break;
+            default:
+                System.out.println("잘못된 입력입니다. 1 ~ 4 사이의 숫자를 입력하세요.");
+                break;
+        }
+    }
+    
+    // 로그인 처리
+    private void handleLogin() {
+        System.out.print("\n플레이어 ID를 입력하세요: ");
+        String playerId = scanner.nextLine();
+        
+        if (playerManager.loginPlayer(playerId)) {
+            System.out.println("\n>> " + playerId + "님, 환영합니다!");
+        } else {
+            System.out.println("\n>> 존재하지 않는 플레이어 ID입니다.");
+        }
+    }
+    
+    // 계정 등록 처리
+    private void handleRegistration() {
+        System.out.print("\n새 플레이어 ID를 입력하세요: ");
+        String playerId = scanner.nextLine();
+        
+        // ID 형식 검사
+        if (playerId.isEmpty()) {
+            System.out.println("\n>> ID는 비어있을 수 없습니다.");
+            return;
+        }
+        
+        if (playerManager.registerPlayer(playerId)) {
+            System.out.println("\n>> 새 계정이 등록되었습니다. " + playerId + "님, 환영합니다!");
+        } else {
+            System.out.println("\n>> 이미 존재하는 ID이거나 등록에 실패했습니다.");
+        }
+    }
+    
+    // 랭킹 보기 처리
+    private void handleRankingView() {
+        if (playerManager.getPlayerCount() == 0) {
+            System.out.println("\n>> 등록된 플레이어가 없습니다.");
+            return;
+        }
+        
+        System.out.println("\n=== 랭킹 메뉴 ===");
+        System.out.println("1. 플레이어 레벨 랭킹");
+        System.out.println("2. 몬스터 평균 레벨 랭킹");
+        System.out.println("3. 뒤로 가기");
+        System.out.print("메뉴를 선택하세요 (1-3): ");
+        
+        String choice = scanner.nextLine();
+        
+        switch (choice) {
+            case "1":
+                User[] levelRankedPlayers = rankingSystem.calculateLevelRanking(
+                    playerManager.getAllPlayers(), playerManager.getPlayerCount());
+                rankingSystem.displayRanking(levelRankedPlayers, "플레이어 레벨");
+                break;
+            case "2":
+                User[] monsterLevelRankedPlayers = rankingSystem.calculateMonsterLevelRanking(
+                    playerManager.getAllPlayers(), playerManager.getPlayerCount());
+                rankingSystem.displayRanking(monsterLevelRankedPlayers, "몬스터 평균 레벨");
+                break;
+            case "3":
+                return;
+            default:
+                System.out.println("잘못된 입력입니다. 1 ~ 3 사이의 숫자를 입력하세요.");
+                break;
         }
     }
 
     // 메인 메뉴 표시 및 처리
     private void displayMainMenu() throws InterruptedException {
+    	User currentUser = playerManager.getCurrentPlayer();
+        
         System.out.println("\n=== 몬스터 잡기 게임 ===");
+        System.out.println("플레이어: " + currentUser.getPlayerId() + " (레벨: " + currentUser.getLevel() + ")");
         System.out.println("1. 맵 선택하기");
         System.out.println("2. 몬스터 도감 보기");
         System.out.println("3. 몬스터 검색하기");
         System.out.println("4. 내 정보 확인");
-        System.out.println("5. 게임 종료");
-        System.out.print("메뉴를 선택하세요 (1-5): ");
+        System.out.println("5. 로그아웃");
+        System.out.println("6. 게임 종료");
+        System.out.print("메뉴를 선택하세요 (1-6): ");
         
         String choice = scanner.nextLine().replace(" ", "");
         
@@ -44,21 +152,25 @@ public class GameManager {
                 break;
             case "2":
                 System.out.println("\n>> 나의 몬스터 도감을 확인합니다.");
-                user.printMyPokeDex();
+                playerManager.getCurrentPlayer().printMyPokeDex();
                 displayUserAction();
                 break;
             case "3":
-                user.searchTotalPokeDex();
+                playerManager.getCurrentPlayer().searchTotalPokeDex();
                 break;
             case "4":
-            	handleUserInfoMenu();
+                handleUserInfoMenu();
                 break;
             case "5":
+                System.out.println("\n>> 로그아웃합니다.");
+                playerManager.logoutPlayer();
+                break;
+            case "6":
                 System.out.println("\n>> 게임을 종료합니다. 감사합니다!");
                 this.isRunning = false;
                 break;
             default:
-                System.out.println("잘못된 입력입니다. 1 ~ 5 사이의 숫자를 입력하세요.");
+                System.out.println("잘못된 입력입니다. 1 ~ 6 사이의 숫자를 입력하세요.");
                 break;
         }
     }
@@ -98,18 +210,19 @@ public class GameManager {
 
     // 맵 선택 처리
     private void handleMapSelection() throws InterruptedException {
-        user.selectMap();
-        previousLocation = user.getLocation();
+    	User currentUser = playerManager.getCurrentPlayer();
+        currentUser.selectMap();
+        previousLocation = currentUser.getLocation();
         
         // 맵 선택이 취소되었거나 집으로 이동한 경우
-        if (user.getLocation().equals("취소")) {
+        if (currentUser.getLocation().equals("취소")) {
             System.out.println("\n>> 맵 선택이 취소되었습니다. 홈으로 돌아갑니다.");
             return;
         }
         
         System.out.println();
         Thread.sleep(500);
-        System.out.println("--" + user.getLocation() + "맵에 소환되었습니다--");
+        System.out.println("--" + currentUser.getLocation() + "맵에 소환되었습니다--");
         Thread.sleep(500);
         System.out.println("(..두리번...두리번..)");
         Thread.sleep(500);
@@ -118,8 +231,18 @@ public class GameManager {
         System.out.println("\n>> ...");
         Thread.sleep(500);
         System.out.println("\n>> ...");
+        currentUser.catchMonster();
         
-        user.catchMonster();
+        // 몬스터를 성공적으로 잡았을 때 레벨 증가
+        if (currentUser.getCaughtMonsterCount() > 0) {
+            int lastIndex = currentUser.getCaughtMonsterCount() - 1;
+            if (currentUser.getCaughtMonsters()[lastIndex] != null && 
+                currentUser.getCaughtMonsters()[lastIndex].isCaught()) {
+                currentUser.increaseLevel();
+                System.out.println("\n🎉 축하합니다! 레벨이 증가했습니다. 현재 레벨: " + currentUser.getLevel());
+            }
+        }
+        
         displayUserAction();
     }
 
