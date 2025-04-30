@@ -12,6 +12,7 @@ public abstract class MonsterBase {
     protected String spawnMap;
     protected String description;
     protected boolean isCaught = false;  // 몬스터가 잡혔는지 여부
+    protected int level = 1;
 
     public MonsterBase() {
         this.name = "기본";
@@ -62,5 +63,15 @@ public abstract class MonsterBase {
 
     public int getIsMet() {
         return isMet;
+    }
+    
+    public int getLevel() {
+        return level;
+    }
+    
+    public void setLevel(int level) {
+        if (level >= 1 && level <= 100) {
+            this.level = level;
+        }
     }
 }

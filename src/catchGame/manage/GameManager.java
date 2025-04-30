@@ -9,12 +9,14 @@ public class GameManager {
     private User user;          // 사용자 정보
     private Scanner scanner;    // 사용자 입력 스캐너
     private String previousLocation;  // 이전 위치
+    private GameSaveManager saveManager;
 
 	// 객체 생성 시 user 객체 생성, 게임 상태 true로 설정
     public GameManager() {
         this.user = new User();
         this.isRunning = true;
         this.scanner = new Scanner(System.in);
+        this.saveManager = new GameSaveManager();
     }
     
     // 게임 실행 메서드
@@ -30,7 +32,7 @@ public class GameManager {
         System.out.println("1. 맵 선택하기");
         System.out.println("2. 몬스터 도감 보기");
         System.out.println("3. 몬스터 검색하기");
-        System.out.println("4. 내 정보 보기");
+        System.out.println("4. 내 정보 확인");
         System.out.println("5. 게임 종료");
         System.out.print("메뉴를 선택하세요 (1-5): ");
         
@@ -49,8 +51,7 @@ public class GameManager {
                 user.searchTotalPokeDex();
                 break;
             case "4":
-                System.out.println("\n>> 내 정보를 확인합니다.");
-                user.printUserInfo();
+            	handleUserInfoMenu();
                 break;
             case "5":
                 System.out.println("\n>> 게임을 종료합니다. 감사합니다!");
@@ -59,6 +60,39 @@ public class GameManager {
             default:
                 System.out.println("잘못된 입력입니다. 1 ~ 5 사이의 숫자를 입력하세요.");
                 break;
+        }
+    }
+    
+    // 새로운 사용자 정보 관리 서브메뉴
+    private void handleUserInfoMenu() throws InterruptedException {
+        while (true) {
+            System.out.println("\n=== 내 정보 관리 ===");
+            System.out.println("1. 기본 정보 보기");
+            System.out.println("2. 게임 저장하기");
+            System.out.println("3. 게임 불러오기");
+            System.out.println("4. 뒤로 가기");
+            System.out.print("메뉴를 선택하세요 (1-4): ");
+            
+            String inputChoice = scanner.nextLine();
+            switch (inputChoice) {
+                case "1":
+                    System.out.println("\n>> 내 정보를 확인합니다.");
+                    user.printUserInfo();
+                    break;
+                case "2":
+                    System.out.println("\n>> 게임을 저장합니다.");
+                    saveManager.saveGame(user);
+                    break;
+                case "3":
+                    System.out.println("\n>> 저장된 게임을 불러옵니다.");
+                    saveManager.loadGame(user);
+                    break;
+                case "4":
+                    return; // 메인 메뉴로 복귀
+                default:
+                    System.out.println("잘못된 입력입니다. 1 ~ 4 사이의 숫자를 입력하세요.");
+                    break;
+            }
         }
     }
 
