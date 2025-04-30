@@ -6,17 +6,15 @@ import catchGame.user.RankingSystem;
 import catchGame.user.User;
 
 public class GameManager {
-	private boolean isRunning;  // 게임 실행 상태
-    private User user;          // 사용자 정보
-    private Scanner scanner;    // 사용자 입력 스캐너
-    private String previousLocation;  // 이전 위치
+	private boolean isRunning;  			// 게임 실행 상태
+    private Scanner scanner;    			// 사용자 입력 스캐너
+    private String previousLocation;  		// 이전 위치
     private GameSaveManager saveManager;
     private PlayerManager playerManager;
     private RankingSystem rankingSystem;
 
-	// 객체 생성 시 user 객체 생성, 게임 상태 true로 설정
+	// 객체 생성 시 게임 상태 true로 설정
     public GameManager() {
-        this.user = new User();
         this.isRunning = true;
         this.scanner = new Scanner(System.in);
         this.saveManager = new GameSaveManager();
@@ -152,13 +150,13 @@ public class GameManager {
             case "2":
                 System.out.println("\n>> 나의 몬스터 도감을 확인합니다.");
                 playerManager.getCurrentPlayer().printMyPokeDex();
-                displayUserAction();
+                displayUserAction(currentUser);
                 break;
             case "3":
                 playerManager.getCurrentPlayer().searchTotalPokeDex();
                 break;
             case "4":
-                handleUserInfoMenu();
+                handleUserInfoMenu(currentUser);
                 break;
             case "5":
                 System.out.println("\n>> 로그아웃합니다.");
@@ -171,7 +169,7 @@ public class GameManager {
     }
     
     // 새로운 사용자 정보 관리 서브메뉴
-    private void handleUserInfoMenu() throws InterruptedException {
+    private void handleUserInfoMenu(User user) throws InterruptedException {
         while (true) {
             System.out.println("\n=== 내 정보 관리 ===");
             System.out.println("1. 기본 정보 보기");
@@ -238,11 +236,11 @@ public class GameManager {
             }
         }
         
-        displayUserAction();
+        displayUserAction(currentUser);
     }
 
     // 사용자 액션 메뉴 표시 및 처리
-    private void displayUserAction() throws InterruptedException {
+    private void displayUserAction(User user) throws InterruptedException {
         while (true) {
             System.out.println("\n1. 계속 탐색하기 2. 다른 맵 이동 3. 도감 보기 4. 몬스터 검색 5. 홈으로 가기");
             String choice = scanner.nextLine().replace(" ", "");
@@ -257,7 +255,7 @@ public class GameManager {
                     user.catchMonster();
                     break;
                 case "2":
-                    handleMapChange();
+                    handleMapChange(user);
                     break;
                 case "3":
                     user.printMyPokeDex();
@@ -276,7 +274,7 @@ public class GameManager {
     }
     
     // 맵 변경 처리
-    private void handleMapChange() throws InterruptedException {
+    private void handleMapChange(User user) throws InterruptedException {
         user.selectMap();
         
         // 사용자가 "취소"를 선택했을 경우
