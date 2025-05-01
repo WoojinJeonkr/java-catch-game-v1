@@ -8,6 +8,7 @@ public enum MapType {
     LAND("땅", "🌴", false),
     UNIVERSE("우주", "🚀", false),
     RANDOM("랜덤", "🎲", true),
+    HOME("집", "🏠", false),
     CANCEL("취소", "⚠️", true);
 
     private final String areaName;

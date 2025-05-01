@@ -12,14 +12,15 @@ import catchGame.monster.MonsterFactory;
 import catchGame.monster.MonsterType;
 
 public class User {
-	private String userName;                // 사용자 이름
-    private String location;                // 사용자 위치
-    private PokeDex pokeDex;           		// 사용자의 포켓몬 도감
-    private MapExploring mapExploring;      // 맵 탐험 관련 정보
-    private MonsterBase[] caughtMonsters;   // 잡은 몬스터 배열
-    private int caughtMonsterCount;         // 잡은 몬스터 수
-    private LocalDateTime startTime;        // 게임 시작 시간
-    private Scanner scanner;                // 사용자 입력 스캐너
+	private String userName;                	// 사용자 이름
+    private String location;                	// 사용자 위치
+    private PokeDex pokeDex;           			// 사용자의 포켓몬 도감
+    private MapExploring mapExploring;      	// 맵 탐험 관련 정보
+    private MonsterBase[] caughtMonsters;   	// 잡은 몬스터 배열
+    private int caughtMonsterCount;         	// 잡은 몬스터 수
+    private LocalDateTime startTime;        	// 게임 시작 시간
+    private static int defaultNameCounter = 1; 	// 기본 플레이어 이름 중복 방지를 위한 카운터
+    private Scanner scanner;                	// 사용자 입력 스캐너
     
     private String playerId; // 플레이어 ID
     private int level = 1; // 플레이어 레벨
@@ -103,11 +104,11 @@ public class User {
             
             if (isEmptyInput(this.userName)) {
                 System.out.println("⚠️ 이름은 공백일 수 없습니다. 기본 이름으로 설정합니다.");
-                this.userName = "트레이너";
+                this.userName = "트레이너" + defaultNameCounter++;
             }
         } catch (Exception e) {
             System.out.println("⚠️ 입력 도중 오류가 발생했습니다. 기본 이름으로 설정합니다.");
-            this.userName = "트레이너";
+            this.userName = "트레이너" + defaultNameCounter++;
         }
         
         this.pokeDex = new PokeDex();
@@ -250,7 +251,7 @@ public class User {
             case "우주":
                 return monsterArrays.createUniverseMonster();
             default:
-                return monsterArrays.createEarthMonster();  // 기본값
+                return monsterArrays.createEarthMonster();
         }
     }
 
@@ -281,10 +282,11 @@ public class User {
         newMap.selectMap(this.mapExploring.getSelectionCount());
         this.mapExploring = newMap;
         
-        // MapType에서 한글 이름 추출
-        this.location = newMap.getFinalMap() == MapType.CANCEL ? 
-                      "집" : 
-                      newMap.getFinalMap().getAreaName();
+        if (newMap.getFinalMap() == MapType.CANCEL) {
+            this.location = "집";
+        } else {
+            this.location = newMap.getFinalMap().getAreaName();
+        }
     }
 
     // 사용자 정보 출력

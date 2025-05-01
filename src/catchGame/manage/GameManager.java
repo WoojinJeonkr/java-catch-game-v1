@@ -133,7 +133,7 @@ public class GameManager {
     	User currentUser = playerManager.getCurrentPlayer();
         
         System.out.println("\n=== 몬스터 잡기 게임 ===");
-        System.out.println("플레이어: " + currentUser.getPlayerId() + " (레벨: " + currentUser.getLevel() + ")");
+        System.out.println("플레이어: " + currentUser.getUserName() + " (레벨: " + currentUser.getLevel() + ")");
         System.out.println("1. 맵 선택하기");
         System.out.println("2. 몬스터 도감 보기");
         System.out.println("3. 몬스터 검색하기");
@@ -209,8 +209,14 @@ public class GameManager {
         
         // 맵 선택이 취소되었거나 집으로 이동한 경우
         if (currentUser.getLocation().equals("취소")) {
-            System.out.println("\n>> 맵 선택이 취소되었습니다. 홈으로 돌아갑니다.");
+            System.out.println("\n>> 맵 선택이 취소되었습니다. 집으로 돌아갑니다.");
             return;
+        }
+        
+        // 집으로 이동한 경우
+        if (currentUser.getLocation().equals("집")) {
+            System.out.println("\n>> 집으로 이동했습니다.");
+            return; // 몬스터 탐색 없이 메인 메뉴로 돌아감
         }
         
         System.out.println();
@@ -242,7 +248,7 @@ public class GameManager {
     // 사용자 액션 메뉴 표시 및 처리
     private void displayUserAction(User user) throws InterruptedException {
         while (true) {
-            System.out.println("\n1. 계속 탐색하기 2. 다른 맵 이동 3. 도감 보기 4. 몬스터 검색 5. 홈으로 가기");
+            System.out.println("\n1. 계속 탐색하기 2. 다른 맵 이동 3. 도감 보기 4. 몬스터 검색 5. 집으로 가기");
             String choice = scanner.nextLine().replace(" ", "");
             
             switch (choice) {
