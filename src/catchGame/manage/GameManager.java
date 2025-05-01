@@ -2,6 +2,7 @@ package catchGame.manage;
 
 import java.util.Scanner;
 
+import catchGame.monster.MonsterHandler;
 import catchGame.user.RankingSystem;
 import catchGame.user.User;
 
@@ -9,6 +10,7 @@ public class GameManager {
 	private boolean isRunning;  			// 게임 실행 상태
     private Scanner scanner;    			// 사용자 입력 스캐너
     private String previousLocation;  		// 이전 위치
+    private MonsterHandler monsterHandler;
     private GameSaveManager saveManager;
     private PlayerManager playerManager;
     private RankingSystem rankingSystem;
@@ -17,6 +19,7 @@ public class GameManager {
     public GameManager() {
         this.isRunning = true;
         this.scanner = new Scanner(System.in);
+        this.monsterHandler = new MonsterHandler(this.scanner);
         this.saveManager = new GameSaveManager();
         this.playerManager = new PlayerManager(3);
         this.rankingSystem = new RankingSystem();
@@ -150,7 +153,6 @@ public class GameManager {
             case "2":
                 System.out.println("\n>> 나의 몬스터 도감을 확인합니다.");
                 playerManager.getCurrentPlayer().printMyPokeDex();
-                displayUserAction(currentUser);
                 break;
             case "3":
                 playerManager.getCurrentPlayer().searchTotalPokeDex();
@@ -230,7 +232,7 @@ public class GameManager {
         System.out.println("\n>> ...");
         Thread.sleep(500);
         System.out.println("\n>> ...");
-        currentUser.catchMonster();
+        monsterHandler.catchMonster(currentUser);
         
         // 몬스터를 성공적으로 잡았을 때 레벨 증가
         if (currentUser.getCaughtMonsterCount() > 0) {
@@ -258,7 +260,7 @@ public class GameManager {
                     System.out.println("\n>> ...");
                     Thread.sleep(500);
                     System.out.println("\n>> ...");
-                    user.catchMonster();
+                    monsterHandler.catchMonster(user);
                     break;
                 case "2":
                     handleMapChange(user);
@@ -287,11 +289,11 @@ public class GameManager {
         if (user.getLocation().equals("취소")) {
             System.out.println("\n>> 맵 이동이 취소되었습니다. 현재 맵에서 계속 진행합니다.");
             user.setLocation(previousLocation);
-            user.catchMonster();
+            monsterHandler.catchMonster(user);
             return;
         }
         
         System.out.println("\n--" + user.getLocation() + "맵에 소환되었습니다--");
-        user.catchMonster();
+        monsterHandler.catchMonster(user);
     }
 }

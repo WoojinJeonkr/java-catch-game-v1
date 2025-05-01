@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 import catchGame.map.MapExploring;
 import catchGame.map.MapType;
-import catchGame.monster.MonsterArrays;
 import catchGame.monster.MonsterBase;
 import catchGame.monster.MonsterFactory;
 import catchGame.monster.MonsterType;
@@ -19,11 +18,12 @@ public class User {
     private MonsterBase[] caughtMonsters;   	// 잡은 몬스터 배열
     private int caughtMonsterCount;         	// 잡은 몬스터 수
     private LocalDateTime startTime;        	// 게임 시작 시간
+    private long playTime; 						// 플레이 시간 (초 단위)
     private static int defaultNameCounter = 1; 	// 기본 플레이어 이름 중복 방지를 위한 카운터
     private Scanner scanner;                	// 사용자 입력 스캐너
     
-    private String playerId; // 플레이어 ID
-    private int level = 1; // 플레이어 레벨
+    private String playerId; 					// 플레이어 ID
+    private int level = 1; 						// 플레이어 레벨
 
 	// User 객체 생성 시 이름 입력받고, 새로운 도감 불러옴
     public User() {
@@ -54,7 +54,11 @@ public class User {
     }
 
     public int getCaughtMonsterCount() {
-        return this.caughtMonsters.length;
+        return this.caughtMonsterCount;
+    }
+    
+    public void incrementCaughtMonsterCount() {
+        this.caughtMonsterCount++;
     }
     
     public String getPlayerId() {
@@ -73,6 +77,19 @@ public class User {
         if (level > 0) {
             this.level = level;
         }
+    }
+    
+    public void startGame() {
+        this.startTime = LocalDateTime.now();
+        this.playTime = 0;
+    }
+    
+    public long getPlayTime() {
+        return this.playTime;
+    }
+    
+    public void setPlayTime(long playTime) {
+        this.playTime = playTime;
     }
     
     // 레벨 증가 메서드
@@ -123,154 +140,7 @@ public class User {
     public void printMyPokeDex() {
         this.pokeDex.printPokeDex();
     }
-
-    // 몬스터 포획 시도
-    public void catchMonster() throws InterruptedException {
-        MonsterArrays monsterArrays = new MonsterArrays();
-        MonsterBase monster = getMonsterForCurrentLocation(monsterArrays);
-        
-        // 몬스터와 조우
-        if (monster.getIsMet() == 1) {
-            System.out.println("\n💥 몬스터를 만났다! 💥\n");
-            monster.displayAppearanceMessage();
-        } else {
-            System.out.println("\n😢 몬스터가 만나지 못했다... 😢\n");
-            monster.displayAppearanceMessage();
-        }
-        
-        Thread.sleep(500);
-        
-        // 기본 몬스터(아무것도 만나지 않음)이 아닌 경우에만 전투 진행
-        if (!monster.getName().equals("기본")) {
-            if (this.askUserToFight()) {
-                System.out.println("\n>> 싸우는 중");
-                Thread.sleep(500);
-                System.out.println(">> ...");
-                Thread.sleep(500);
-                System.out.println(">> ...\n");
-                Thread.sleep(500);
-                
-                // 몬스터가 도망가지 않는 경우에만 포획 시도
-                if (monster.attemptEscape()) {
-                    boolean caught = monster.attemptCatch();
-                    if (caught) {
-                    	// 몬스터 레벨 설정 (5~100 사이 랜덤)
-                        int monsterLevel = new java.util.Random().nextInt(96) + 5;
-                        monster.setLevel(monsterLevel);
-                        
-                        // 몬스터 소지 수량 제한 처리
-                        if (caughtMonsterCount >= 6) {
-                        	this.ReplaceMonster(monster);
-                        } else {
-                            this.caughtMonsters[caughtMonsterCount] = monster;
-                            caughtMonsterCount++;
-                            System.out.println("✨ 띠링! " + monster.getName() + "(Lv." + monster.getLevel() + ")이(가) 포켓몬 도감에 등록되었습니다!");
-                            this.pokeDex.updatePokeDex(monster.getName());
-                        }
-                    }
-                }
-            }
-        } else {
-            // 기본 몬스터(아무것도 만나지 않음)의 경우
-            monster.attemptEscape();
-        }
-    }
     
-    private void ReplaceMonster(MonsterBase newMonster) {
-    	System.out.println("⚠️ 이미 6마리를 소지 중입니다. 처리 방식을 선택하세요:");
-        System.out.println("1. 기존 몬스터 교체하기");
-        System.out.println("2. 새 몬스터 놓아주기");
-        System.out.print("선택 (1-2): ");
-        
-        try {
-            int actionChoice = Integer.parseInt(scanner.nextLine());
-            if (actionChoice == 1) {
-                showMonsterListForReplacement(newMonster);
-            } else if (actionChoice == 2) {
-                releaseNewMonster(newMonster);
-            } else {
-                System.out.println("잘못된 선택입니다. 새 몬스터를 놓아줍니다.");
-                releaseNewMonster(newMonster);
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("숫자를 입력해주세요. 새 몬스터를 놓아줍니다.");
-            releaseNewMonster(newMonster);
-        }
-    }
-    
-    // 교체 대상 몬스터 목록 표시
-    private void showMonsterListForReplacement(MonsterBase newMonster) {
-        System.out.println("\n교체할 몬스터 번호 선택:");
-        for (int i = 0; i < caughtMonsterCount; i++) {
-        	System.out.println((i + 1) + ". " + caughtMonsters[i].getName() 
-        			+ " (Lv." + caughtMonsters[i].getLevel() + ")");
-        	System.out.println("7. 취소하고 새 몬스터 놓아주기");
-
-	        try {
-	            int slotChoice = Integer.parseInt(scanner.nextLine());
-	            if (slotChoice >= 1 && slotChoice <= 6) {
-	                replaceMonster(slotChoice, newMonster);
-	            } else if (slotChoice == 7) {
-	                releaseNewMonster(newMonster);
-	            } else {
-	                System.out.println("잘못된 선택입니다. 새 몬스터를 놓아줍니다.");
-	                releaseNewMonster(newMonster);
-	            }
-	        } catch (NumberFormatException e) {
-	            System.out.println("숫자를 입력해주세요. 새 몬스터를 놓아줍니다.");
-	            releaseNewMonster(newMonster);
-	        }
-        }
-    }
-    
-    // 기존 몬스터 교체 처리
-    private void replaceMonster(int slot, MonsterBase newMonster) {
-        MonsterBase oldMonster = caughtMonsters[slot-1];
-        System.out.println("\n【" + oldMonster.getName() + " (Lv." + oldMonster.getLevel() +
-				    	    ")】을(를) 풀어주고 【" + newMonster.getName() + " (Lv." + newMonster.getLevel() +
-				    	    ")】을(를) 획득했습니다!");
-        caughtMonsters[slot-1] = newMonster;
-        pokeDex.updatePokeDex(newMonster.getName());
-    }
-    
-    // 새 몬스터 풀어주기 처리
-    private void releaseNewMonster(MonsterBase newMonster) {
-    	System.out.println("\n【" + newMonster.getName() + " (Lv." + newMonster.getLevel() +
-			    		    ")】을(를) 야생으로 돌려보냈습니다...");
-    }
-
-    // 현재 위치에 맞는 몬스터 가져오기
-    private MonsterBase getMonsterForCurrentLocation(MonsterArrays monsterArrays) {
-        switch (this.location) {
-            case "하늘":
-                return monsterArrays.createSkyMonster();
-            case "바다":
-                return monsterArrays.createSeaMonster();
-            case "땅":
-                return monsterArrays.createEarthMonster();
-            case "우주":
-                return monsterArrays.createUniverseMonster();
-            default:
-                return monsterArrays.createEarthMonster();
-        }
-    }
-
-    // 사용자에게 전투 여부 물어보기
-    private boolean askUserToFight() {
-        System.out.print("\n>> 싸우시겠습니까?(Y/N) ");
-        
-        while (true) {
-            String userChoice = scanner.nextLine();
-            if (userChoice.equalsIgnoreCase("Y")) {
-                return true;
-            } else if (userChoice.equalsIgnoreCase("N")) {
-                return false;
-            } else {
-                System.out.println("⚠️ 잘못된 입력입니다. 'Y' 또는 'N'을 입력해주세요.");
-            }
-        }
-    }
-
     // 도감 검색
     public void searchTotalPokeDex() {
         this.pokeDex.searchPokeDex();
@@ -302,12 +172,15 @@ public class User {
             System.out.printf("몬스터 평균 레벨: %.2f\n", avgLevel);
         }
         
-        System.out.println("현재 잡은 몬스터:");
-        
-        for (int i = 0; i < this.caughtMonsterCount; i++) {
-            if (this.caughtMonsters[i] != null) {
-                System.out.println((i + 1) + ". 🎯" + this.caughtMonsters[i].getName() + 
-                                  " (Lv." + this.caughtMonsters[i].getLevel() + ")");
+        if (this.caughtMonsterCount == 0) {
+            System.out.println("현재 잡은 몬스터: 없음");
+        } else {
+            System.out.println("현재 잡은 몬스터:");
+            for (int i = 0; i < this.caughtMonsterCount; i++) {
+                if (this.caughtMonsters[i] != null) {
+                    System.out.println((i + 1) + ". 🎯" + this.caughtMonsters[i].getName() +
+                                      " (Lv." + this.caughtMonsters[i].getLevel() + ")");
+                }
             }
         }
     }
@@ -335,12 +208,30 @@ public class User {
         return input == null || input.length() == 0;
     }
     
+    public void updatePlayTime() {
+        if (startTime != null) {
+            Duration sessionDuration = Duration.between(startTime, LocalDateTime.now());
+            this.playTime += sessionDuration.getSeconds();
+            this.startTime = LocalDateTime.now(); // 다시 측정 시작
+        }
+    }
+    
+    public void resumePlayTime() {
+        this.startTime = LocalDateTime.now().minusSeconds(this.playTime);
+    }
+    
     // 플레이 시간을 사용자 친화적으로 포맷팅
     public String getFormattedPlayTime() {
-        Duration duration = Duration.between(startTime, LocalDateTime.now());
-        long hours = duration.toHours();
-        long minutes = duration.toMinutes() % 60;
-        long seconds = duration.getSeconds() % 60;
+    	long totalSeconds = this.playTime;
+    	
+    	if (this.startTime != null) {
+            Duration duration = Duration.between(this.startTime, LocalDateTime.now());
+            totalSeconds += duration.getSeconds();
+        }
+    	
+    	long hours = totalSeconds / 3600;
+        long minutes = (totalSeconds % 3600) / 60;
+        long seconds = totalSeconds % 60;
         
         return String.format("%02d시간 %02d분 %02d초", hours, minutes, seconds);
     }
@@ -370,5 +261,9 @@ public class User {
                 this.pokeDex.updatePokeDex(monsterName);
             }
         }
+    }
+    
+    public PokeDex getPokeDex() {
+        return this.pokeDex;
     }
 }

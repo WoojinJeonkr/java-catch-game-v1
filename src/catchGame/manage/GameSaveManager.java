@@ -87,6 +87,8 @@ public class GameSaveManager {
             directory.mkdir();
         }
         
+        user.updatePlayTime();
+        
         // 파일 저장
         try (PrintWriter writer = new PrintWriter("saves/" + fileName)) {
             // 플레이어 ID 저장
@@ -98,6 +100,7 @@ public class GameSaveManager {
             writer.println("USER_NAME=" + user.getUserName());
             writer.println("LOCATION=" + user.getLocation());
             writer.println("CAUGHT_COUNT=" + user.getCaughtMonsterCount());
+            writer.write("PLAY_TIME=" + user.getPlayTime() + "\n");
             
             // 잡은 몬스터 정보 저장
             MonsterBase[] monsters = user.getCaughtMonsters();
@@ -133,34 +136,64 @@ public class GameSaveManager {
         }
         
         // 저장된 파일 목록 표시
-        System.out.println("불러올 세이브 선택:");
+        System.out.println("불러올 세이브 파일 선택 (q:취소):");
+        
         for (int i = 0; i < saveCount; i++) {
             System.out.println((i + 1) + ". " + savedFiles[i]);
         }
-        System.out.println((saveCount + 1) + ". 취소");
         
         // 사용자 선택 받기
-        int choice = 0;
+        System.out.print("선택: ");
+        String input = scanner.nextLine();
+
+        if (input.equalsIgnoreCase("q")) {
+            System.out.println(">> 불러오기 취소됨.");
+            return false;
+        }
+        
         try {
-            choice = Integer.parseInt(scanner.nextLine());
-            if (choice > 0 && choice <= saveCount) {
-                return loadGameFile(user, savedFiles[choice - 1]);
-            } else if (choice == saveCount + 1) {
-                System.out.println("로드 취소");
-                return false;
+        	int choice = Integer.parseInt(input);
+            if (choice >= 1 && choice <= saveCount) {
+            	String selectedFile = savedFiles[choice - 1];
+
+                if (!checkUserNameInFile(selectedFile, user.getUserName())) {
+                    System.out.println("❌ 현재 로그인한 사용자와 세이브 파일의 사용자명이 일치하지 않습니다.");
+                    return false;
+                }
+
+                return loadGameFile(user, selectedFile);
             } else {
                 System.out.println("잘못된 선택입니다.");
                 return false;
             }
         } catch (NumberFormatException e) {
-            System.out.println("숫자를 입력해주세요.");
+        	System.out.println("숫자를 입력하거나 q를 입력해 취소할 수 있습니다.");
             return false;
         }
+    }
+    
+    private boolean checkUserNameInFile(String fileName, String expectedUserName) {
+        File file = new File("saves/" + fileName);
+        
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (line.startsWith("USER_NAME=")) {
+                    String savedName = line.split("=", 2)[1];
+                    return savedName.equals(expectedUserName);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("파일 확인 중 오류 발생: " + e.getMessage());
+        }
+        
+        return false;
     }
     
     // 선택한 파일 로드
     private boolean loadGameFile(User user, String fileName) {
         File file = new File("saves/" + fileName);
+        
         if (!file.exists()) {
             System.out.println("파일을 찾을 수 없습니다: " + fileName);
             return false;
@@ -190,6 +223,9 @@ public class GameSaveManager {
                         case "LOCATION":
                             user.setLocation(value);
                             break;
+                        case "PLAY_TIME":
+	                        user.setPlayTime(Long.parseLong(value));
+	                        break;
                         case "MONSTER":
                             String[] monsterData = value.split(",");
                             if (monsterData.length == 2) {
@@ -203,6 +239,9 @@ public class GameSaveManager {
             }
             
             System.out.println("✅ "+fileName+"에서 성공적으로 복원되었습니다");
+            
+            user.resumePlayTime();
+            
             return true;
         } catch (FileNotFoundException e) {
             System.out.println("파일을 읽을 수 없습니다: " + e.getMessage());
