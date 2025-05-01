@@ -4,28 +4,42 @@
 
 ### 추가
 
-- `MonsterFactory` 클래스 추가: 몬스터 생성 로직을 팩토리 패턴으로 구현
-- 새로운 몬스터 유형 10종 추가 (Arceus, Dialga, Groudon 등)
-- 맵 타입 관리용 `MapType` 열거형 클래스 추가
-- 이전 디렉토리 구조 문서화 (`docs/tree/BEFORE_DIRECTORY_TREE.md`)
+- MonsterFactory 클래스 추가: 몬스터 생성 로직을 팩토리 패턴으로 구현
+- MapType enum 클래스 추가: 맵 타입 안정성 강화 및 문자열 처리 개선
+- MonsterType enum 추가: 몬스터 타입을 명확하게 관리 (예: Monster0 → EmptyMonster)
+- 배열 처리 시 동적 길이 계산을 위한 length 속성 활용 로직 추가
 
 ### 변경
 
-- **리팩토링 작업**
-  - 몬스터 클래스 계층 구조 개선: `MonsterBase` 추상 클래스 도입
-  - 맵 탐색 로직을 `MapExploring` 클래스로 캡슐화
-  - 사용자 정보 관리 클래스(`User.java`) 재작성
-- **문서 개선**
-  - README.md에 몬스터 등장 확률 테이블 추가
-  - 커밋 메시지 컨벤션 도입 (feat, fix, refactor 등)
+- **Main 클래스 리팩토링**
+  - Main 클래스가 프로그램 시작 및 GameManager 설정만 담당하도록 역할 분리
+  - Main 클래스에서 GameManager 인스턴스와 설정하여 의존성 최소화
+  - Thread 동작 관련 에러를 Main 클래스에서 처리하도록 변경
 
-### 제거
+- **게임 로직 핵심 클래스 리팩토링**
+  - 객체 생성을 효율화하여 기존 단일 클래스를 여러 개의 작은 클래스로 재구성
+  - 사용자 위치 상태 관리를 User 클래스로 완전히 이전
+  - GameManager 수정 범위를 최소화하여 확장성 강화
+  - 메서드 계층 구조 개선으로 가독성 향상
+  - 모듈화된 I/O 처리 대신 객체 메서드 호출을 통한 의존성 감소
 
-- 중복된 몬스터 클래스 11종 제거 (Monster0-Monster10)
-- 사용하지 않는 `GameManager` 초기 구현체 제거
-- 레거시 모듈 정보 파일(`module-info.java`) 삭제
+- **맵 관련 로직 개선**
+  - 문자열 기반 맵 선택 방식에서 enum 기반 방식으로 변경
+  - 한글 입력 처리를 위한 맵 타입 매핑 로직 통합
+  - 맵 이름 표시 로직 개선 (이야기 + 한글명 자동화)
+  - 맵 선택 처리 위한 로직을 별도 메서드로 분리하여 가독성 향상
+
+- **포캣몬 도감 관리 클래스 리팩토링**
+  - 배열 값 하드코딩 제거 및 length 속성 사용으로 유연성 확보
+  - 가독성을 위한 변수명 및 메서드명 개선
 
 ### 수정
 
-- `.gitignore` 파일 위치 수정: `/catchGame/` → `/bin/`
-- IDE 설정 파일 경로 문제 해결 (`org.eclipse.core.resources.prefs`)
+- MapType enum에 맵 이름(areaName) 접근 메서드(getAreaName()) 추가
+- User 클래스의 location 필드 저장 방식 개선
+- "취소" 선택 시 사용자 위치를 "집"으로 설정하는 로직 추가
+
+### 제거
+
+- 배열 값 하드코딩 방식 제거
+- 불필요한 String 타입의 맵 관련 필드 및 상태 필드 제거
