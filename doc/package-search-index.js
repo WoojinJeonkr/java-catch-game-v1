@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"catchGame"},{"l":"catchGame.manage"},{"l":"catchGame.map"},{"l":"catchGame.monster"},{"l":"catchGame.user"}];updateSearchResults();

@@ -1,11 +1,35 @@
 package catchGame.monster;
 
+/**
+ * 이상해꽃 몬스터를 나타내는 클래스
+ * 
+ * <p>
+ * 이 클래스는 이상해꽃의 특성과 행동을 정의합니다.
+ * 이상해꽃의 등장 메시지, 도망 시도, 포획 시도 등의 동작을 처리합니다.
+ * </p>
+ *
+ * @author ImaginaryNumberi
+ * @author Woojinjeonkr
+ */
 public class Venusaur extends MonsterBase {
 
+	/**
+     * Venusaur 생성자
+     * 
+     * <p>Venusaur 객체를 생성하고, 몬스터 타입을 VENUSAUR로 설정합니다.</p>
+     */
 	public Venusaur() {
         super(MonsterType.VENUSAUR);
     }
 
+	/**
+     * 등장 메시지를 출력하는 메서드
+     * 
+     * <p>
+     * 이상해꽃이 등장했을 때의 상황을 묘사하는 메시지를 출력합니다.
+     * 랜덤한 메시지를 선택하여 출력합니다.
+     * </p>
+     */
     @Override
     public void displayAppearanceMessage() {
         System.out.println("=========포켓몬 조우=========");
@@ -21,6 +45,16 @@ public class Venusaur extends MonsterBase {
         
     }
 
+    /**
+     * 도망 시도를 처리하고 결과를 반환하는 메서드
+     * 
+     * <p>
+     * 9% 확률로 이상해꽃이 도망치고, 91% 확률로 도망치지 않습니다.
+     * 각 상황에 맞는 메시지를 출력합니다.
+     * </p>
+     *
+     * @return 9% 확률로 false (도망침), 91% 확률로 true (도망치지 않음)을 반환
+     */
     @Override
     public boolean attemptEscape() {
         this.probabilityValue = random.nextInt(3);
@@ -54,6 +88,17 @@ public class Venusaur extends MonsterBase {
         return true;
     }
 
+    /**
+     * 포획 시도를 처리하고 결과를 반환하는 메서드
+     * 
+     * <p>
+     * 50% 확률로 이상해꽃 포획에 성공하고, 50% 확률로 실패합니다.
+     * 각 상황에 맞는 메시지를 출력합니다.
+     * </p>
+     *
+     * @return 50% 확률로 true (포획 성공), 50% 확률로 false (포획 실패)를 반환
+     * @throws InterruptedException 스레드 sleep 중 인터럽트 발생 시 예외 처리
+     */
     @Override
     public boolean attemptCatch() throws InterruptedException {
         showDelay();

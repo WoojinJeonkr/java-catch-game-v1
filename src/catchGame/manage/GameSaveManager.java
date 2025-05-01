@@ -10,19 +10,35 @@ import catchGame.user.User;
 
 /**
  * 파일 저장 및 불러오기 클래스
+ * 
+ * <p>게임 진행 상황을 파일에 저장하고, 저장된 파일을 불러와 게임을 재개하는 기능을 제공합니다.</p>
+ * 
+ * @author Woojinjeonkr
  */
 public class GameSaveManager {
+	/** 최대 저장 가능한 파일 수 */
 	private static final int MAX_SAVES = 5;
+	/** 저장된 파일 이름 목록 */
     private String[] savedFiles = new String[MAX_SAVES];
+    /** 현재 저장된 파일 수 */
     private int saveCount = 0;
-    
+    /** 사용자 입력을 처리하는 Scanner 객체 */
     Scanner scanner = new Scanner(System.in);
     
+    /**
+     * GameSaveManager 생성자
+     * 
+     * <p>저장된 파일 목록을 초기화합니다.</p>
+     */
     public GameSaveManager() {
         loadSaveFilesList();
     }
     
-    // 저장된 파일 목록 로드
+    /**
+     * 저장된 파일 목록을 로드하는 메서드
+     * 
+     * <p>"saves" 디렉토리에서 .txt 파일을 찾아 `savedFiles` 배열에 저장합니다.</p>
+     */
     private void loadSaveFilesList() {
         File directory = new File("saves");
         if (!directory.exists()) {
@@ -43,7 +59,16 @@ public class GameSaveManager {
         }
     }
     
-    // 파일 저장
+    /**
+     * 게임 진행 상황을 파일에 저장하는 메서드
+     * 
+     * <p>
+     * 사용자 정보를 파일에 기록하고, 저장 파일 목록을 갱신합니다.
+     * 최대 저장 개수를 초과하면 기존 파일을 삭제하고 저장합니다.
+     * </p>
+     *
+     * @param user 저장할 사용자 정보
+     */
     public void saveGame(User user) {
         if (saveCount >= MAX_SAVES) {
             System.out.print("삭제할 세이브 번호 선택:");
@@ -119,13 +144,24 @@ public class GameSaveManager {
         }
     }
     
-    // 현재 날짜-시간 문자열 반환
+    /**
+     * 현재 날짜와 시간 정보를 문자열 형태로 반환하는 메서드
+     *
+     * @return "yyyyMMdd-HHmmss" 형식의 현재 날짜 및 시간 문자열
+     */
     private String getCurrentDateTime() {
         java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyyMMdd-HHmmss");
         return formatter.format(new java.util.Date());
     }
     
-    // 저장된 게임 목록 표시 및 선택
+    /**
+     * 저장된 게임 목록을 표시하고 선택하는 메서드
+     * 
+     * <p>저장된 파일 목록을 보여주고, 사용자가 선택한 파일을 로드합니다.</p>
+     *
+     * @param user 게임 정보를 복원할 User 객체
+     * @return 파일 로드 성공 시 true, 실패 시 false
+     */
     public boolean loadGame(User user) {
         // 저장된 파일 목록 새로고침
         loadSaveFilesList();
@@ -172,6 +208,13 @@ public class GameSaveManager {
         }
     }
     
+    /**
+     * 파일에 저장된 사용자 이름과 현재 사용자의 이름이 일치하는지 확인하는 메서드
+     *
+     * @param fileName 확인할 파일 이름
+     * @param expectedUserName 현재 사용자의 이름
+     * @return 사용자 이름이 일치하면 true, 그렇지 않으면 false
+     */
     private boolean checkUserNameInFile(String fileName, String expectedUserName) {
         File file = new File("saves/" + fileName);
         
@@ -190,7 +233,13 @@ public class GameSaveManager {
         return false;
     }
     
-    // 선택한 파일 로드
+    /**
+     * 선택한 파일을 로드하여 게임 정보를 복원하는 메서드
+     *
+     * @param user 게임 정보를 복원할 User 객체
+     * @param fileName 로드할 파일 이름
+     * @return 파일 로드 성공 시 true, 실패 시 false
+     */
     private boolean loadGameFile(User user, String fileName) {
         File file = new File("saves/" + fileName);
         

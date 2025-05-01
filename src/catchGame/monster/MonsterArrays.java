@@ -4,17 +4,28 @@ import java.util.Random;
 
 /**
  * 몬스터 등장 확률을 관리하는 클래스
+ * 
+ * @author ImaginaryNumberi
  */
 public class MonsterArrays {
+	
+	/** 몬스터 등장 확률 계산에 사용되는 Random 객체 */
 	private Random random = new Random();
 
-	// 등장 횟수 카운트 (통계용)
+	/** 등장 횟수 카운트 (통계용) - 텅 빈 몬스터 */
     public int emptyEncounterCount = 0;
+    /** 등장 횟수 카운트 (통계용) - 첫 번째 몬스터 */
     public int firstMonsterCount = 0;
+    /** 등장 횟수 카운트 (통계용) - 두 번째 몬스터 */
     public int secondMonsterCount = 0;
+    /** 등장 횟수 카운트 (통계용) - 세 번째 몬스터 */
     public int thirdMonsterCount = 0;
 
-    // 땅맵에서 몬스터 생성
+    /**
+     * 땅맵에서 몬스터를 생성하는 메서드
+     *
+     * @return 생성된 몬스터 객체
+     */
     public MonsterBase createEarthMonster() {
         int randomValue = random.nextInt(20);
         
@@ -33,7 +44,11 @@ public class MonsterArrays {
         }
     }
 
-    // 바다맵에서 몬스터 생성
+    /**
+     * 바다맵에서 몬스터를 생성하는 메서드
+     *
+     * @return 생성된 몬스터 객체
+     */
     public MonsterBase createSeaMonster() {
         int randomValue = random.nextInt(20);
         
@@ -52,7 +67,11 @@ public class MonsterArrays {
         }
     }
 
-    // 하늘맵에서 몬스터 생성
+    /**
+     * 하늘맵에서 몬스터를 생성하는 메서드
+     *
+     * @return 생성된 몬스터 객체
+     */
     public MonsterBase createSkyMonster() {
         int randomValue = random.nextInt(20);
         
@@ -71,7 +90,11 @@ public class MonsterArrays {
         }
     }
 
-    // 우주맵에서 몬스터 생성
+    /**
+     * 우주맵에서 몬스터를 생성하는 메서드
+     *
+     * @return 생성된 몬스터 객체
+     */
     public MonsterBase createUniverseMonster() {
         int randomValue = random.nextInt(200);
         
