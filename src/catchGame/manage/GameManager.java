@@ -20,7 +20,7 @@ import catchGame.user.User;
 public class GameManager {
     /** 게임 실행 상태 플래그 */
     private boolean isRunning;
-	/** 사용자 입력을 처리하는 Scanner 객체 */
+    /** 사용자 입력을 처리하는 Scanner 객체 */
     private Scanner scanner;
     /** 이전 위치 정보 */
     private String previousLocation;
